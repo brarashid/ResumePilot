@@ -85,12 +85,6 @@
     .hero-stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); }
     .hero-stat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
 
-    /* ── SOCIAL PROOF ── */
-    .social-proof { padding: 32px 5%; background: white; border-bottom: 1px solid var(--border); }
-    .social-proof-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
-    .sp-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
-    .sp-logos { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; justify-content: center; }
-    .sp-logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: #C4B5FD; letter-spacing: -0.02em; }
 
     /* â”€â”€ FEATURES â”€â”€ */
     .section { padding: 96px 5%; }
@@ -105,7 +99,7 @@
       padding: 32px 28px; border-radius: 16px; border: 1.5px solid var(--border);
       background: white; transition: all 0.2s; position: relative; overflow: hidden;
     }
-    .feature-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, var(--c1, #7C3AED)08, transparent); opacity:0; transition:opacity 0.3s; }
+    .feature-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, var(--c1, #7C3AED08), transparent); opacity:0; transition:opacity 0.3s; }
     .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); border-color: var(--c1, var(--primary)); }
     .feature-card:hover::before { opacity: 1; }
     .feature-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 20px; }
@@ -266,22 +260,6 @@
   </div>
 </section>
 
-<!-- SOCIAL PROOF -->
-<div class=”social-proof”>
-  <div class=”social-proof-inner”>
-    <span class=”sp-label”>Users hired at</span>
-    <div class=”sp-logos”>
-      <span class=”sp-logo”>Google</span>
-      <span class=”sp-logo”>Microsoft</span>
-      <span class=”sp-logo”>Stripe</span>
-      <span class=”sp-logo”>Paystack</span>
-      <span class=”sp-logo”>Andela</span>
-      <span class=”sp-logo”>MTN</span>
-      <span class=”sp-logo”>Flutterwave</span>
-      <span class=”sp-logo”>Amazon</span>
-    </div>
-  </div>
-</div>
 
 <!-- â”€â”€ FEATURES â”€â”€ -->
 <section class="section" id="features">
