@@ -122,9 +122,10 @@ a { text-decoration: none; color: inherit; }
 
 .sidebar-logo-img {
   display: block;
-  width: 115%;
-  margin-left: -7.5%;
+  width: 75%;
+  margin: 0 auto;
   height: auto;
+  border-radius: 14px;
 }
 
 .sidebar-nav {
