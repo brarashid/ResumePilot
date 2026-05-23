@@ -501,6 +501,7 @@
         document.getElementById('signinPassword').value
       );
       localStorage.setItem('rp_token', result.token);
+      localStorage.setItem('rp_user', JSON.stringify(result.user));
       App.toast('Welcome back! Redirecting...', 'success');
       setTimeout(() => window.location.href = 'dashboard.html', 1000);
     } catch {
@@ -527,6 +528,7 @@
         password: pwd
       });
       localStorage.setItem('rp_token', result.token);
+      localStorage.setItem('rp_user', JSON.stringify(result.user));
       App.toast('Account created! Welcome to ResumePilot 🎉', 'success');
       setTimeout(() => window.location.href = 'dashboard.html', 1200);
     } catch {
@@ -538,7 +540,8 @@
 
   function socialLogin(provider) {
     App.toast(`Connecting to ${provider === 'google' ? 'Google' : 'LinkedIn'}...`, 'info');
-    // Placeholder: redirect to OAuth endpoint
+    // Social login users are always regular users until a real OAuth backend is wired up.
+    localStorage.setItem('rp_user', JSON.stringify({ role: 'user', name: provider }));
     setTimeout(() => window.location.href = 'dashboard.html', 1200);
   }
 

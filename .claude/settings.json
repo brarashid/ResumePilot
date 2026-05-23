@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\Desktop\\\\ResumePilot\" -Recurse -Depth 2)"
+    ]
+  }
+}

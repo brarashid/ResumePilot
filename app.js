@@ -81,9 +81,18 @@ const App = (() => {
     }, duration);
   }
 
+  /* ── ADMIN NAV ── */
+  function _enforceAdminNav() {
+    const user = JSON.parse(localStorage.getItem('rp_user') || '{}');
+    if (user.role !== 'admin') {
+      document.querySelectorAll('a[href="admin.html"]').forEach(el => el.remove());
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     _initDropdowns();
     _initModals();
+    _enforceAdminNav();
   });
 
   return { toggleSidebar, toast, openModal, closeModal };
