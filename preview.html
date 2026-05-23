@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumePilot — Resume Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">✈</div>
+      <span class="logo-text">ResumePilot</span>
+    </div>
+    <div class="logo-sub">AI Resume Builder</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+    <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+    <div class="nav-section-label">AI Tools</div>
+    <a href="analyzer.html" class="nav-item"><i class="fas fa-search-plus"></i><span>Job Analyzer</span></a>
+    <a href="generator.html" class="nav-item"><i class="fas fa-magic"></i><span>Resume Generator</span><span class="nav-badge">AI</span></a>
+    <a href="preview.html" class="nav-item active"><i class="fas fa-eye"></i><span>Preview</span></a>
+    <a href="cover-letter.html" class="nav-item"><i class="fas fa-envelope-open-text"></i><span>Cover Letter</span></a>
+    <div class="nav-section-label">Tracking</div>
+    <a href="tracker.html" class="nav-item"><i class="fas fa-columns"></i><span>App Tracker</span></a>
+    <div class="nav-section-label">Account</div>
+    <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+    <a href="admin.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="plan-card">
+      <div class="plan-label">Current Plan</div>
+      <div class="plan-name">Free Plan</div>
+      <div class="usage-bar-wrap">
+        <div class="usage-bar-label"><span>Resumes</span><span>2/3 used</span></div>
+        <div class="usage-bar"><div class="usage-bar-fill" data-width="67" style="width:0%"></div></div>
+      </div>
+      <button class="btn-upgrade" onclick="window.location.href='settings.html'">⚡ Upgrade to Pro</button>
+    </div>
+  </div>
+</aside>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="App.toggleSidebar()"><i class="fas fa-bars"></i></button>
+  <div class="navbar-search">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" placeholder="Search resumes, jobs...">
+  </div>
+  <div class="navbar-actions">
+    <div class="dropdown">
+      <button class="navbar-btn" data-dropdown><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+      <div class="dropdown-menu" style="width:300px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.875rem;">Notifications</div>
+        <div class="dropdown-item"><i class="fas fa-check-circle" style="color:var(--success)"></i> Resume generated successfully</div>
+        <div class="dropdown-item"><i class="fas fa-star" style="color:var(--warning)"></i> ATS Score: 92 — Excellent!</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <div class="user-avatar" data-dropdown>JA</div>
+      <div class="dropdown-menu">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-weight:600;font-size:0.875rem;">John Adebayo</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">john@example.com</div>
+        </div>
+        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+        <a href="settings.html" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="auth.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;"></div>
+
+<!-- MAIN -->
+<div class="main-content">
+  <div class="page-content">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header slide-up">
+      <div>
+        <h1 class="page-title">Resume Preview</h1>
+        <p class="page-subtitle">Review, edit inline, and download your AI-generated resume.</p>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-secondary" onclick="window.location.href='generator.html'"><i class="fas fa-arrow-left"></i> Back</button>
+        <button class="btn btn-primary" onclick="Preview.downloadPDF()"><i class="fas fa-download"></i> Download PDF</button>
+      </div>
+    </div>
+
+    <!-- PREVIEW LAYOUT -->
+    <div class="preview-layout">
+
+      <!-- A4 RESUME CANVAS -->
+      <div class="resume-canvas-wrap slide-up">
+        <!-- Toolbar -->
+        <div class="resume-toolbar">
+          <div class="resume-toolbar-left">
+            <div class="zoom-controls">
+              <button class="zoom-btn" onclick="Preview.zoomOut()"><i class="fas fa-minus"></i></button>
+              <span class="zoom-level" id="zoomLabel">100%</span>
+              <button class="zoom-btn" onclick="Preview.zoomIn()"><i class="fas fa-plus"></i></button>
+            </div>
+            <button class="edit-toggle" id="editToggle" onclick="Preview.toggleEdit()">
+              <i class="fas fa-pen"></i> Edit Mode
+            </button>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <span class="badge badge-success"><i class="fas fa-check-circle"></i> ATS Optimized</span>
+            <span class="badge badge-primary">Modern Pro Template</span>
+          </div>
+        </div>
+
+        <!-- A4 Page -->
+        <div class="a4-container">
+          <div class="a4-page" id="resumeA4">
+
+            <!-- RESUME HEADER -->
+            <div class="resume-header">
+              <div class="resume-name" id="rName" contenteditable="false" spellcheck="false">John Adebayo</div>
+              <div class="resume-title" id="rTitle" contenteditable="false" spellcheck="false">Senior Frontend Developer</div>
+              <div class="resume-contact">
+                <span><i class="fas fa-envelope"></i> <span id="rEmail" contenteditable="false">john.adebayo@example.com</span></span>
+                <span><i class="fas fa-phone"></i> <span id="rPhone" contenteditable="false">+234 812 345 6789</span></span>
+                <span><i class="fas fa-map-marker-alt"></i> <span id="rLocation" contenteditable="false">Lagos, Nigeria</span></span>
+                <span><i class="fab fa-linkedin"></i> <span id="rLinkedIn" contenteditable="false">linkedin.com/in/johnadebayo</span></span>
+              </div>
+            </div>
+
+            <!-- RESUME BODY -->
+            <div class="resume-body">
+
+              <!-- LEFT SIDEBAR COL -->
+              <div class="resume-sidebar-col">
+
+                <!-- Skills -->
+                <div class="res-section">
+                  <div class="res-section-title">Technical Skills</div>
+                  <div id="rSkillsList">
+                    <span class="res-skill-tag">React</span>
+                    <span class="res-skill-tag">TypeScript</span>
+                    <span class="res-skill-tag">Node.js</span>
+                    <span class="res-skill-tag">Python</span>
+                    <span class="res-skill-tag">PostgreSQL</span>
+                    <span class="res-skill-tag">AWS</span>
+                    <span class="res-skill-tag">Docker</span>
+                    <span class="res-skill-tag">GraphQL</span>
+                    <span class="res-skill-tag">Redis</span>
+                    <span class="res-skill-tag">CI/CD</span>
+                  </div>
+                </div>
+
+                <!-- Education -->
+                <div class="res-section">
+                  <div class="res-section-title">Education</div>
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">B.Sc. Computer Science</div>
+                    <div class="res-item-sub" contenteditable="false">University of Lagos</div>
+                    <div class="res-item-sub" contenteditable="false">2015 – 2019 · GPA: 4.2/5.0</div>
+                  </div>
+                </div>
+
+                <!-- Certifications -->
+                <div class="res-section">
+                  <div class="res-section-title">Certifications</div>
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">AWS Solutions Architect</div>
+                    <div class="res-item-sub" contenteditable="false">Amazon Web Services · 2023</div>
+                  </div>
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">Google Cloud Engineer</div>
+                    <div class="res-item-sub" contenteditable="false">Google · 2022</div>
+                  </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="res-section">
+                  <div class="res-section-title">Languages</div>
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">English — Native</div>
+                    <div class="res-item-title" contenteditable="false">Yoruba — Native</div>
+                    <div class="res-item-title" contenteditable="false">French — Intermediate</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- MAIN COL -->
+              <div class="resume-main-col">
+
+                <!-- Summary -->
+                <div class="res-section">
+                  <div class="res-section-title">Professional Summary</div>
+                  <div class="res-item-text" contenteditable="false" id="rSummary">
+                    Results-driven Senior Frontend Developer with 5+ years of experience building scalable web applications. Demonstrated expertise in React, TypeScript, and Node.js. Passionate about clean code architecture, system design, and delivering user-centric solutions that drive business growth. Proven track record of improving application performance by 40%+.
+                  </div>
+                </div>
+
+                <!-- Experience -->
+                <div class="res-section">
+                  <div class="res-section-title">Work Experience</div>
+
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">Senior Frontend Developer</div>
+                    <div class="res-item-sub" contenteditable="false">TechVest Africa · Lagos, Nigeria · Mar 2022 – Present</div>
+                    <div class="res-item-text" contenteditable="false">
+                      • Led development of React-based fintech dashboard serving 50,000+ active users<br>
+                      • Improved application performance by 40% through code splitting and lazy loading<br>
+                      • Mentored team of 4 junior developers and conducted weekly code reviews<br>
+                      • Architected microservices integration reducing API response time by 60%
+                    </div>
+                  </div>
+
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">Frontend Developer</div>
+                    <div class="res-item-sub" contenteditable="false">Andela · Remote · Jun 2019 – Feb 2022</div>
+                    <div class="res-item-text" contenteditable="false">
+                      • Built reusable React component libraries used across 3 enterprise client projects<br>
+                      • Contributed to projects for Fortune 500 companies across Africa and the US<br>
+                      • Implemented CI/CD pipelines reducing deployment time from 2 hours to 15 minutes<br>
+                      • Achieved 98% test coverage through comprehensive unit and integration testing
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="res-section">
+                  <div class="res-section-title">Key Projects</div>
+                  <div class="res-item">
+                    <div class="res-item-title" contenteditable="false">PayFlow — P2P Payment Platform</div>
+                    <div class="res-item-sub" contenteditable="false">React, Node.js, PostgreSQL · 2023</div>
+                    <div class="res-item-text" contenteditable="false">
+                      Built end-to-end peer-to-peer payment platform serving 10,000+ users with real-time transaction processing and fraud detection.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDEBAR -->
+      <div class="preview-sidebar slide-up stagger-1">
+
+        <!-- ATS Score Ring -->
+        <div class="ats-panel">
+          <h3 style="font-size:0.875rem;font-weight:700;margin-bottom:16px;">ATS Score</h3>
+          <div class="ats-ring-wrap">
+            <svg class="ats-ring-svg" viewBox="0 0 120 120">
+              <circle class="ats-ring-bg" cx="60" cy="60" r="50"/>
+              <circle class="ats-ring-fill" id="atsRingFill" cx="60" cy="60" r="50"/>
+            </svg>
+            <div class="ats-ring-score">
+              <div class="ats-score-num" id="atsScoreNum">0</div>
+              <div class="ats-score-label">ATS Score</div>
+            </div>
+          </div>
+          <div class="ats-status-badge" id="atsBadge" style="background:var(--success-light);color:var(--success);">
+            <i class="fas fa-check-circle"></i> Excellent Match
+          </div>
+          <!-- Score Breakdown -->
+          <div class="score-breakdown">
+            <div class="score-row">
+              <div class="score-row-label">Keyword Match</div>
+              <div class="score-row-bar"><div class="score-row-fill" data-width="94" style="width:0%;background:var(--success)"></div></div>
+              <div class="score-row-val">94%</div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-label">Skills Match</div>
+              <div class="score-row-bar"><div class="score-row-fill" data-width="88" style="width:0%;background:var(--success)"></div></div>
+              <div class="score-row-val">88%</div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-label">Experience</div>
+              <div class="score-row-bar"><div class="score-row-fill" data-width="96" style="width:0%;background:var(--success)"></div></div>
+              <div class="score-row-val">96%</div>
+            </div>
+            <div class="score-row">
+              <div class="score-row-label">Formatting</div>
+              <div class="score-row-bar"><div class="score-row-fill" data-width="90" style="width:0%;background:var(--success)"></div></div>
+              <div class="score-row-val">90%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Fixes -->
+        <div class="fixes-panel">
+          <h3 style="font-size:0.875rem;font-weight:700;margin-bottom:12px;"><i class="fas fa-bolt" style="color:var(--warning)"></i> Quick Fixes</h3>
+          <div class="fix-item">
+            <div class="fix-icon"><i class="fas fa-exclamation"></i></div>
+            <div>Add "Kubernetes" to boost score by +3%</div>
+          </div>
+          <div class="fix-item">
+            <div class="fix-icon"><i class="fas fa-exclamation"></i></div>
+            <div>Mention "Agile" methodology in experience</div>
+          </div>
+          <div class="fix-item">
+            <div class="fix-icon"><i class="fas fa-info"></i></div>
+            <div>Add portfolio link to contact section</div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-panel">
+          <h3 style="font-size:0.875rem;font-weight:700;margin-bottom:4px;">Download & Actions</h3>
+          <button class="btn-action-full primary" onclick="Preview.downloadPDF()">
+            <i class="fas fa-file-pdf"></i> Download PDF
+          </button>
+          <button class="btn-action-full secondary" onclick="Preview.downloadDOCX()">
+            <i class="fas fa-file-word"></i> Download DOCX
+          </button>
+          <button class="btn-action-full success" onclick="window.location.href='cover-letter.html'">
+            <i class="fas fa-envelope-open-text"></i> Generate Cover Letter
+          </button>
+          <button class="btn-action-full secondary" onclick="window.location.href='generator.html'">
+            <i class="fas fa-redo"></i> Re-tailor Resume
+          </button>
+          <button class="btn-action-full secondary" onclick="Preview.shareResume()">
+            <i class="fas fa-share-alt"></i> Share Resume
+          </button>
+          <button class="btn-action-full secondary" onclick="window.location.href='tracker.html'">
+            <i class="fas fa-columns"></i> Add To Tracker
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" id="shareModal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <h3 class="modal-title"><i class="fas fa-share-alt"></i> Share Resume</h3>
+      <button class="modal-close" onclick="App.closeModal('shareModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:16px;">Share your resume via a secure link (expires in 7 days).</p>
+      <div style="display:flex;gap:8px;">
+        <input type="text" value="https://resumepilot.app/r/abc123xyz" readonly
+               style="flex:1;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.8rem;background:var(--bg);">
+        <button class="btn btn-primary" style="white-space:nowrap;" onclick="Preview.copyLink()">
+          <i class="fas fa-copy"></i> Copy
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="analyzer.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Analyze</span></a>
+  <a href="generator.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Generate</span></a>
+  <a href="tracker.html" class="bottom-nav-item"><i class="fas fa-columns"></i><span>Tracker</span></a>
+  <a href="profile.html" class="bottom-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+</nav>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="app.js"></script>
+<script src="preview.js"></script>
+</body>
+</html>

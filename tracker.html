@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumePilot — Application Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="tracker.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">✈</div>
+      <span class="logo-text">ResumePilot</span>
+    </div>
+    <div class="logo-sub">AI Resume Builder</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+    <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+    <div class="nav-section-label">AI Tools</div>
+    <a href="analyzer.html" class="nav-item"><i class="fas fa-search-plus"></i><span>Job Analyzer</span></a>
+    <a href="generator.html" class="nav-item"><i class="fas fa-magic"></i><span>Resume Generator</span><span class="nav-badge">AI</span></a>
+    <a href="preview.html" class="nav-item"><i class="fas fa-eye"></i><span>Preview</span></a>
+    <a href="cover-letter.html" class="nav-item"><i class="fas fa-envelope-open-text"></i><span>Cover Letter</span></a>
+    <div class="nav-section-label">Tracking</div>
+    <a href="tracker.html" class="nav-item active"><i class="fas fa-columns"></i><span>App Tracker</span></a>
+    <div class="nav-section-label">Account</div>
+    <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+    <a href="admin.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="plan-card">
+      <div class="plan-label">Current Plan</div>
+      <div class="plan-name">Free Plan</div>
+      <div class="usage-bar-wrap">
+        <div class="usage-bar-label"><span>Resumes</span><span>2/3 used</span></div>
+        <div class="usage-bar"><div class="usage-bar-fill" data-width="67" style="width:0%"></div></div>
+      </div>
+      <button class="btn-upgrade" onclick="window.location.href='settings.html'">⚡ Upgrade to Pro</button>
+    </div>
+  </div>
+</aside>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="App.toggleSidebar()"><i class="fas fa-bars"></i></button>
+  <div class="navbar-search">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" placeholder="Search applications...">
+  </div>
+  <div class="navbar-actions">
+    <div class="dropdown">
+      <button class="navbar-btn" data-dropdown><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+      <div class="dropdown-menu" style="width:300px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.875rem;">Notifications</div>
+        <div class="dropdown-item"><i class="fas fa-star" style="color:var(--warning)"></i> New job match: 94% for Stripe</div>
+        <div class="dropdown-item"><i class="fas fa-check-circle" style="color:var(--success)"></i> Interview scheduled at Google</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <div class="user-avatar" data-dropdown>JA</div>
+      <div class="dropdown-menu">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-weight:600;font-size:0.875rem;">John Adebayo</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">john@example.com</div>
+        </div>
+        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+        <a href="settings.html" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="auth.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;"></div>
+
+<!-- MAIN -->
+<div class="main-content">
+  <div class="page-content">
+
+    <!-- HEADER -->
+    <div class="page-header slide-up">
+      <div>
+        <h1 class="page-title">Application Tracker</h1>
+        <p class="page-subtitle">Drag and drop to manage your job applications pipeline.</p>
+      </div>
+      <button class="btn btn-primary" onclick="Tracker.openAddModal()">
+        <i class="fas fa-plus"></i> Add Application
+      </button>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="tracker-stats slide-up">
+      <div class="stat-card">
+        <div class="stat-card-icon" style="background:var(--primary-light);color:var(--primary)"><i class="fas fa-briefcase"></i></div>
+        <div class="stat-card-body">
+          <div class="stat-card-value" id="statTotal">0</div>
+          <div class="stat-card-label">Total Applications</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-icon" style="background:var(--warning-light);color:var(--warning)"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-card-body">
+          <div class="stat-card-value" id="statInterviewRate">0%</div>
+          <div class="stat-card-label">Interview Rate</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-icon" style="background:var(--info-light);color:var(--info)"><i class="fas fa-spinner"></i></div>
+        <div class="stat-card-body">
+          <div class="stat-card-value" id="statActive">0</div>
+          <div class="stat-card-label">Active Applications</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card-icon" style="background:var(--success-light);color:var(--success)"><i class="fas fa-trophy"></i></div>
+        <div class="stat-card-body">
+          <div class="stat-card-value" id="statOffers">0</div>
+          <div class="stat-card-label">Offers Received</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="tracker-filters slide-up stagger-1">
+      <span class="filter-label"><i class="fas fa-filter"></i> Filter</span>
+      <input type="text" class="filter-input" id="filterRole" placeholder="Search by role..." oninput="Tracker.filterCards()">
+      <input type="date" class="filter-input" id="filterDateFrom" onchange="Tracker.filterCards()">
+      <span style="font-size:0.8rem;color:var(--text-muted);">to</span>
+      <input type="date" class="filter-input" id="filterDateTo" onchange="Tracker.filterCards()">
+      <button class="btn btn-secondary btn-sm" onclick="Tracker.clearFilters()"><i class="fas fa-times"></i> Clear</button>
+    </div>
+
+    <!-- KANBAN BOARD -->
+    <div class="kanban-board slide-up stagger-2" id="kanbanBoard">
+
+      <!-- Draft -->
+      <div class="kanban-col col-draft" id="col-draft">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title"><i class="fas fa-pencil-alt"></i> Draft</div>
+          <div class="kanban-col-count" id="count-draft">0</div>
+        </div>
+        <div class="kanban-col-body sortable-list" id="list-draft" data-col="draft"></div>
+        <button class="kanban-add-btn" onclick="Tracker.openAddModal('draft')"><i class="fas fa-plus"></i> Add Card</button>
+      </div>
+
+      <!-- Applied -->
+      <div class="kanban-col col-applied" id="col-applied">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title"><i class="fas fa-paper-plane"></i> Applied</div>
+          <div class="kanban-col-count" id="count-applied">0</div>
+        </div>
+        <div class="kanban-col-body sortable-list" id="list-applied" data-col="applied"></div>
+        <button class="kanban-add-btn" onclick="Tracker.openAddModal('applied')"><i class="fas fa-plus"></i> Add Card</button>
+      </div>
+
+      <!-- Interview -->
+      <div class="kanban-col col-interview" id="col-interview">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title"><i class="fas fa-users"></i> Interview</div>
+          <div class="kanban-col-count" id="count-interview">0</div>
+        </div>
+        <div class="kanban-col-body sortable-list" id="list-interview" data-col="interview"></div>
+        <button class="kanban-add-btn" onclick="Tracker.openAddModal('interview')"><i class="fas fa-plus"></i> Add Card</button>
+      </div>
+
+      <!-- Offer -->
+      <div class="kanban-col col-offer" id="col-offer">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title"><i class="fas fa-handshake"></i> Offer</div>
+          <div class="kanban-col-count" id="count-offer">0</div>
+        </div>
+        <div class="kanban-col-body sortable-list" id="list-offer" data-col="offer"></div>
+        <button class="kanban-add-btn" onclick="Tracker.openAddModal('offer')"><i class="fas fa-plus"></i> Add Card</button>
+      </div>
+
+      <!-- Rejected -->
+      <div class="kanban-col col-rejected" id="col-rejected">
+        <div class="kanban-col-header">
+          <div class="kanban-col-title"><i class="fas fa-times-circle"></i> Rejected</div>
+          <div class="kanban-col-count" id="count-rejected">0</div>
+        </div>
+        <div class="kanban-col-body sortable-list" id="list-rejected" data-col="rejected"></div>
+        <button class="kanban-add-btn" onclick="Tracker.openAddModal('rejected')"><i class="fas fa-plus"></i> Add Card</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- APPLICATION DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="Tracker.closeDrawer()"></div>
+<div class="app-drawer" id="appDrawer">
+  <div class="drawer-header">
+    <div>
+      <h3 style="font-size:1rem;font-weight:700;" id="drawerCompany">Company Name</h3>
+      <div style="font-size:0.8rem;color:var(--text-muted);" id="drawerRole">Job Title</div>
+    </div>
+    <button class="drawer-close" onclick="Tracker.closeDrawer()">&times;</button>
+  </div>
+  <div class="drawer-body">
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Application Details</div>
+      <div class="drawer-field">
+        <label>Company</label>
+        <div class="drawer-field-value" id="dCompany">—</div>
+      </div>
+      <div class="drawer-field">
+        <label>Position</label>
+        <div class="drawer-field-value" id="dPosition">—</div>
+      </div>
+      <div class="drawer-field">
+        <label>Date Applied</label>
+        <div class="drawer-field-value" id="dDate">—</div>
+      </div>
+      <div class="drawer-field">
+        <label>ATS Score</label>
+        <div class="drawer-field-value" id="dATS">—</div>
+      </div>
+      <div class="drawer-field">
+        <label>Resume Used</label>
+        <div class="drawer-field-value" id="dResume">—</div>
+      </div>
+      <div class="drawer-field">
+        <label>Status</label>
+        <div class="drawer-field-value" id="dStatus">—</div>
+      </div>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Recruiter Details</div>
+      <div class="drawer-field">
+        <label>Recruiter Name</label>
+        <div class="drawer-field-value" id="dRecruiter">—</div>
+      </div>
+      <div class="drawer-field">
+        <label>Recruiter Email</label>
+        <div class="drawer-field-value" id="dRecruiterEmail">—</div>
+      </div>
+    </div>
+
+    <div class="drawer-section drawer-notes">
+      <div class="drawer-section-title">Notes</div>
+      <textarea id="dNotes" placeholder="Add notes about this application..."></textarea>
+    </div>
+
+    <div class="drawer-section">
+      <div class="drawer-section-title">Timeline</div>
+      <div class="timeline" id="dTimeline">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+  </div>
+  <div class="drawer-footer">
+    <button class="btn btn-primary" style="flex:1;" onclick="Tracker.saveNotes()"><i class="fas fa-save"></i> Save Notes</button>
+    <button class="btn btn-danger" onclick="Tracker.deleteApplication()"><i class="fas fa-trash"></i></button>
+  </div>
+</div>
+
+<!-- ADD APPLICATION MODAL -->
+<div class="modal-overlay" id="addAppModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 class="modal-title"><i class="fas fa-plus-circle"></i> Add Application</h3>
+      <button class="modal-close" onclick="App.closeModal('addAppModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">Company *</label>
+        <input type="text" class="form-input" id="addCompany" placeholder="e.g. Google">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Position *</label>
+        <input type="text" class="form-input" id="addPosition" placeholder="e.g. Senior Software Engineer">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Stage</label>
+        <select class="form-input" id="addStage">
+          <option value="draft">Draft</option>
+          <option value="applied">Applied</option>
+          <option value="interview">Interview</option>
+          <option value="offer">Offer</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div class="form-group">
+          <label class="form-label">ATS Score</label>
+          <input type="number" class="form-input" id="addATS" placeholder="e.g. 87" min="0" max="100">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Date Applied</label>
+          <input type="date" class="form-input" id="addDate">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Resume Used</label>
+        <input type="text" class="form-input" id="addResume" placeholder="e.g. Modern Pro — Google">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="App.closeModal('addAppModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="Tracker.addApplication()"><i class="fas fa-plus"></i> Add</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="analyzer.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Analyze</span></a>
+  <a href="generator.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Generate</span></a>
+  <a href="tracker.html" class="bottom-nav-item active"><i class="fas fa-columns"></i><span>Tracker</span></a>
+  <a href="profile.html" class="bottom-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+</nav>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+<script src="app.js"></script>
+<script src="tracker.js"></script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+/* ResumePilot — Job Analyzer Styles */
+
+/* ── LAYOUT ── */
+.analyzer-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.analyzer-input {
+  position: sticky;
+  top: calc(var(--navbar-h) + 24px);
+}
+
+.analyzer-results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.analyzer-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 2px dashed var(--border);
+}
+
+/* ── REGION SELECTOR ── */
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.region-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.region-card:hover {
+  border-color: var(--primary);
+  background: var(--primary-light);
+}
+
+.region-card.active {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.region-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.region-name {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.2;
+}
+
+.region-card.active .region-name {
+  color: var(--primary);
+}
+
+/* ── SCORE HERO ── */
+.score-hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.score-info {
+  flex: 1;
+}
+
+.score-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.score-info p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── SCORE METER BARS ── */
+.score-meter-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.score-meter-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.score-meter-bar {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.score-meter-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.score-meter-val {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  width: 32px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── KEYWORDS ── */
+.keywords-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.keyword-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.keyword-tag.matched {
+  background: var(--success-light);
+  color: #15803D;
+}
+
+.keyword-tag.missing {
+  background: var(--danger-light);
+  color: #991B1B;
+}
+
+/* ── SKILLS GAP ── */
+.skills-gap-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.skills-gap-row:last-child {
+  border-bottom: none;
+}
+
+.skills-gap-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.skills-gap-bar-wrap {
+  flex: 1;
+}
+
+.skills-gap-bar {
+  height: 8px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.skills-gap-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width 1s ease;
+}
+
+.skills-gap-pct {
+  font-size: 0.8rem;
+  font-weight: 700;
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── RECOMMENDATIONS ── */
+.rec-item {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.rec-item:last-child {
+  border-bottom: none;
+}
+
+.rec-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.rec-body {
+  flex: 1;
+}
+
+.rec-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 3px;
+}
+
+.rec-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── LOADING STATE ── */
+.analyze-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 48px;
+}
+
+.analyze-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--primary-mid);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.analyze-loading-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .analyzer-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .analyzer-input {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .region-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .score-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .skills-gap-name {
+    width: 100px;
+    font-size: 0.8rem;
+  }
+}

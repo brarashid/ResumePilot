@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumePilot — AI-Powered Resume Builder</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #7C3AED; --primary-dark: #5B21B6; --primary-light: #F5F3FF;
+      --success: #22C55E; --warning: #F59E0B; --text: #111827; --text-muted: #6B7280;
+      --bg: #F9FAFB; --border: #E5E7EB;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: #fff; line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+    /* ── NAV ── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 68px;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(229,231,235,0.6);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-mark {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1rem;
+    }
+    .nav-logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--text); }
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-link { padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: all 0.2s; }
+    .nav-link:hover { color: var(--primary); background: var(--primary-light); }
+    .nav-cta { padding: 9px 22px; border-radius: 10px; background: var(--primary); color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; box-shadow: 0 4px 14px rgba(124,58,237,0.3); }
+    .nav-cta:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+    .nav-mobile { display: none; background: none; border: none; font-size: 1.25rem; color: var(--text); cursor: pointer; padding: 8px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 140px 5% 100px;
+      background: linear-gradient(160deg, #faf5ff 0%, #ede9fe 40%, #f0fdf4 100%);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.12) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: white; border: 1px solid #e9d5ff; border-radius: 30px;
+      padding: 6px 16px; font-size: 0.82rem; font-weight: 600; color: var(--primary);
+      margin-bottom: 28px; box-shadow: 0 2px 12px rgba(124,58,237,0.1);
+    }
+    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--success); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)} 50%{box-shadow:0 0 0 6px rgba(34,197,94,0)} }
+    .hero h1 { font-size: clamp(2.4rem, 5vw, 4.2rem); font-weight: 800; line-height: 1.12; margin-bottom: 24px; color: #0F0A1E; }
+    .hero h1 span { background: linear-gradient(135deg, var(--primary), #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 1.15rem; color: var(--text-muted); max-width: 580px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+    .btn-hero-primary {
+      padding: 14px 32px; border-radius: 12px; background: var(--primary); color: #fff;
+      text-decoration: none; font-weight: 700; font-size: 1rem;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.35); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-hero-primary:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(124,58,237,0.45); }
+    .btn-hero-secondary {
+      padding: 14px 32px; border-radius: 12px; background: white; color: var(--text);
+      text-decoration: none; font-weight: 600; font-size: 1rem;
+      border: 1.5px solid var(--border); transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-hero-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+    .hero-stat-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+
+    /* ── SOCIAL PROOF ── */
+    .social-proof { padding: 32px 5%; background: white; border-bottom: 1px solid var(--border); }
+    .social-proof-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; justify-content: center; }
+    .sp-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; white-space: nowrap; }
+    .sp-logos { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; justify-content: center; }
+    .sp-logo { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: #C4B5FD; letter-spacing: -0.02em; }
+
+    /* ── FEATURES ── */
+    .section { padding: 96px 5%; }
+    .section-label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; color: #0F0A1E; margin-bottom: 16px; line-height: 1.2; }
+    .section-sub { font-size: 1rem; color: var(--text-muted); max-width: 520px; line-height: 1.7; }
+    .section-center { text-align: center; }
+    .section-center .section-sub { margin: 0 auto; }
+
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 56px; }
+    .feature-card {
+      padding: 32px 28px; border-radius: 16px; border: 1.5px solid var(--border);
+      background: white; transition: all 0.2s; position: relative; overflow: hidden;
+    }
+    .feature-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg, var(--c1, #7C3AED)08, transparent); opacity:0; transition:opacity 0.3s; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.08); border-color: var(--c1, var(--primary)); }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 20px; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; color: #0F0A1E; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { background: linear-gradient(160deg, #0F0A1E, #1e1040); color: white; }
+    .how-section .section-title { color: white; }
+    .how-section .section-sub { color: #C4B5FD; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; margin-top: 56px; }
+    .step { text-align: center; }
+    .step-num { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #a855f7); color: white; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+    .step-icon { font-size: 1.8rem; margin-bottom: 14px; }
+    .step h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: white; }
+    .step p { font-size: 0.875rem; color: #C4B5FD; line-height: 1.6; }
+    .step-connector { display: none; }
+
+    /* ── REGIONS ── */
+    .regions-section { background: var(--bg); }
+    .regions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 48px; }
+    .region-card {
+      padding: 28px 24px; border-radius: 14px; background: white; border: 1.5px solid var(--border);
+      text-align: center; transition: all 0.2s; cursor: default;
+    }
+    .region-card:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(124,58,237,0.1); }
+    .region-flag { font-size: 2.2rem; margin-bottom: 12px; }
+    .region-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .region-desc { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 56px; }
+    .testimonial-card { padding: 28px; border-radius: 16px; border: 1.5px solid var(--border); background: white; }
+    .testimonial-stars { color: #F59E0B; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 14px; }
+    .testimonial-text { font-size: 0.925rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.8rem; flex-shrink: 0; }
+    .testimonial-name { font-weight: 700; font-size: 0.875rem; }
+    .testimonial-role { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── PRICING ── */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 56px; max-width: 900px; margin-left: auto; margin-right: auto; }
+    .pricing-card { padding: 36px 32px; border-radius: 20px; border: 1.5px solid var(--border); background: white; position: relative; }
+    .pricing-card.featured { border-color: var(--primary); background: linear-gradient(160deg, #faf5ff, #ede9fe); box-shadow: 0 16px 48px rgba(124,58,237,0.15); }
+    .pricing-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; font-size: 0.72rem; font-weight: 700; padding: 4px 16px; border-radius: 20px; letter-spacing: 0.05em; white-space: nowrap; }
+    .pricing-plan { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 12px; }
+    .pricing-price { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: #0F0A1E; line-height: 1; }
+    .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--text-muted); }
+    .pricing-desc { font-size: 0.875rem; color: var(--text-muted); margin: 12px 0 24px; }
+    .pricing-features { list-style: none; margin-bottom: 28px; }
+    .pricing-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.875rem; color: #374151; padding: 6px 0; border-bottom: 1px solid #f3f4f6; }
+    .pricing-features li:last-child { border: none; }
+    .pricing-features li i { color: var(--success); font-size: 0.85rem; margin-top: 3px; flex-shrink: 0; }
+    .pricing-features li.muted i { color: #D1D5DB; }
+    .pricing-features li.muted { color: var(--text-muted); }
+    .btn-pricing { display: block; text-align: center; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 0.925rem; text-decoration: none; transition: all 0.2s; }
+    .btn-pricing.primary { background: var(--primary); color: white; box-shadow: 0 4px 16px rgba(124,58,237,0.3); }
+    .btn-pricing.primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+    .btn-pricing.secondary { background: white; color: var(--text); border: 1.5px solid var(--border); }
+    .btn-pricing.secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      margin: 0 5% 80px; padding: 60px 48px; border-radius: 24px;
+      background: linear-gradient(135deg, #0F0A1E, #2d1b69);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before { content:''; position:absolute; top:-60px; right:-60px; width:260px; height:260px; border-radius:50%; background:rgba(124,58,237,0.3); }
+    .cta-banner::after  { content:''; position:absolute; bottom:-40px; left:-40px;  width:200px; height:200px; border-radius:50%; background:rgba(168,85,247,0.2); }
+    .cta-banner h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: white; margin-bottom: 12px; position: relative; }
+    .cta-banner p  { font-size: 1rem; color: #C4B5FD; margin-bottom: 32px; position: relative; }
+    .cta-banner .hero-btns { position: relative; }
+
+    /* ── FOOTER ── */
+    footer { background: #0F0A1E; color: #C4B5FD; padding: 64px 5% 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    .footer-brand { }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-logo-mark { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1rem; }
+    .footer-logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: white; }
+    .footer-desc { font-size: 0.875rem; color: #9CA3AF; line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; color: white; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 0.875rem; color: #9CA3AF; text-decoration: none; margin-bottom: 10px; transition: color 0.15s; }
+    .footer-col a:hover { color: white; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 0.82rem; color: #6B7280; }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-social { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; color: #9CA3AF; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; }
+    .footer-social:hover { background: var(--primary); color: white; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-mobile { display: block; }
+      .hero { padding: 120px 5% 60px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .hero-stats { gap: 24px; }
+      .cta-banner { padding: 40px 24px; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease forwards; }
+    .stagger-1 { animation-delay: 0.1s; opacity: 0; }
+    .stagger-2 { animation-delay: 0.2s; opacity: 0; }
+    .stagger-3 { animation-delay: 0.3s; opacity: 0; }
+    .stagger-4 { animation-delay: 0.4s; opacity: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">✈</div>
+    <span class="nav-logo-text">ResumePilot</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#how" class="nav-link">How It Works</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="admin.html" class="nav-link">Admin</a>
+    <a href="auth.html" class="nav-link">Sign In</a>
+    <a href="auth.html" class="nav-cta">Get Started Free</a>
+  </div>
+  <button class="nav-mobile" onclick="document.querySelector('.nav-links').style.display='flex';document.querySelector('.nav-links').style.flexDirection='column';document.querySelector('.nav-links').style.position='fixed';document.querySelector('.nav-links').style.top='68px';document.querySelector('.nav-links').style.left='0';document.querySelector('.nav-links').style.right='0';document.querySelector('.nav-links').style.background='white';document.querySelector('.nav-links').style.padding='20px';document.querySelector('.nav-links').style.borderBottom='1px solid #e5e7eb';document.querySelector('.nav-links').style.zIndex='99';">
+    <i class="fas fa-bars"></i>
+  </button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge fade-up">
+    <span class="dot"></span>
+    Trusted by 50,000+ job seekers in 40+ countries
+  </div>
+  <h1 class="fade-up stagger-1">
+    Land Your Dream Job with<br><span>AI-Powered Resumes</span>
+  </h1>
+  <p class="hero-sub fade-up stagger-2">
+    ResumePilot analyses job descriptions, tailors your resume for ATS systems, and generates compelling cover letters — all in under 2 minutes.
+  </p>
+  <div class="hero-btns fade-up stagger-3">
+    <a href="auth.html" class="btn-hero-primary"><i class="fas fa-magic"></i> Build My Resume — Free</a>
+    <a href="dashboard.html" class="btn-hero-secondary"><i class="fas fa-play-circle"></i> View Demo</a>
+  </div>
+  <div class="hero-stats fade-up stagger-4">
+    <div class="hero-stat"><div class="hero-stat-num">50K+</div><div class="hero-stat-label">Resumes Created</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">92%</div><div class="hero-stat-label">ATS Pass Rate</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">40+</div><div class="hero-stat-label">Countries Served</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4.9★</div><div class="hero-stat-label">Average Rating</div></div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ── -->
+<div class="social-proof">
+  <div class="social-proof-inner">
+    <span class="sp-label">Users hired at</span>
+    <div class="sp-logos">
+      <span class="sp-logo">Google</span>
+      <span class="sp-logo">Microsoft</span>
+      <span class="sp-logo">Stripe</span>
+      <span class="sp-logo">Paystack</span>
+      <span class="sp-logo">Andela</span>
+      <span class="sp-logo">MTN</span>
+      <span class="sp-logo">Flutterwave</span>
+      <span class="sp-logo">Amazon</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── FEATURES ── -->
+<section class="section" id="features">
+  <div class="section-center">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything you need to get hired</h2>
+    <p class="section-sub">From ATS optimisation to regional templates — ResumePilot gives you every advantage.</p>
+  </div>
+  <div class="features-grid">
+
+    <div class="feature-card" style="--c1:#7C3AED;">
+      <div class="feature-icon" style="background:#F5F3FF;color:#7C3AED;"><i class="fas fa-robot"></i></div>
+      <h3>AI Resume Generator</h3>
+      <p>Paste a job description and let our AI rewrite your resume to perfectly match the role, keywords, and tone required by the hiring team.</p>
+    </div>
+
+    <div class="feature-card" style="--c1:#3B82F6;">
+      <div class="feature-icon" style="background:#DBEAFE;color:#3B82F6;"><i class="fas fa-search-plus"></i></div>
+      <h3>Job Description Analyser</h3>
+      <p>Instantly extract must-have keywords, required skills, and hidden priorities from any job posting — before you even start writing.</p>
+    </div>
+
+    <div class="feature-card" style="--c1:#22C55E;">
+      <div class="feature-icon" style="background:#DCFCE7;color:#22C55E;"><i class="fas fa-chart-bar"></i></div>
+      <h3>ATS Score & Optimisation</h3>
+      <p>See your ATS compatibility score in real time and get a prioritised fix list that boosts your chances of passing automated screening.</p>
+    </div>
+
+    <div class="feature-card" style="--c1:#F59E0B;">
+      <div class="feature-icon" style="background:#FEF3C7;color:#F59E0B;"><i class="fas fa-envelope-open-text"></i></div>
+      <h3>Cover Letter AI</h3>
+      <p>Generate role-specific cover letters in seconds. Choose your tone — professional, warm, or bold — and personalise with a single click.</p>
+    </div>
+
+    <div class="feature-card" style="--c1:#EC4899;">
+      <div class="feature-icon" style="background:#FCE7F3;color:#EC4899;"><i class="fas fa-columns"></i></div>
+      <h3>Application Tracker</h3>
+      <p>Kanban-style board to track every application from Draft to Offer. Log recruiter notes, interview dates, and follow-up reminders.</p>
+    </div>
+
+    <div class="feature-card" style="--c1:#14B8A6;">
+      <div class="feature-icon" style="background:#CCFBF1;color:#14B8A6;"><i class="fas fa-palette"></i></div>
+      <h3>Regional Templates</h3>
+      <p>Professionally designed templates optimised for US/Canada, Europe, Africa, and the Gulf — because resume norms vary by region.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="section how-section" id="how">
+  <div class="section-center">
+    <div class="section-label" style="color:#C4B5FD;">How It Works</div>
+    <h2 class="section-title">From job post to offer in 4 steps</h2>
+    <p class="section-sub" style="margin:0 auto;">No guesswork, no formatting nightmares. Just results.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-icon">📋</div>
+      <h3>Paste the Job Description</h3>
+      <p>Drop in any job posting URL or paste the description text. Our analyser extracts what really matters.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-icon">👤</div>
+      <h3>Complete Your Profile</h3>
+      <p>Add your work history, skills, and education once. ResumePilot reuses and reshapes it for every application.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-icon">⚡</div>
+      <h3>Generate & Optimise</h3>
+      <p>Click Generate. The AI builds a tailored resume, scores it for ATS, and shows you exactly what to improve.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-icon">🚀</div>
+      <h3>Download & Apply</h3>
+      <p>Export as PDF or DOCX, generate your cover letter, and track the application — all in one place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── REGIONS ── -->
+<section class="section regions-section">
+  <div class="section-center">
+    <div class="section-label">Global Coverage</div>
+    <h2 class="section-title">Built for your job market</h2>
+    <p class="section-sub">Different regions have different resume standards. We've got them all covered.</p>
+  </div>
+  <div class="regions-grid">
+    <div class="region-card">
+      <div class="region-flag">🇺🇸</div>
+      <div class="region-name">US & Canada</div>
+      <div class="region-desc">Clean, skills-first, 1-page standard</div>
+    </div>
+    <div class="region-card">
+      <div class="region-flag">🇪🇺</div>
+      <div class="region-name">Europe</div>
+      <div class="region-desc">Europass-compatible, photo optional</div>
+    </div>
+    <div class="region-card">
+      <div class="region-flag">🌍</div>
+      <div class="region-name">Africa</div>
+      <div class="region-desc">Detail-rich, academic credentials</div>
+    </div>
+    <div class="region-card">
+      <div class="region-flag">🇦🇪</div>
+      <div class="region-name">Gulf / MENA</div>
+      <div class="region-desc">Formal, comprehensive, photo-inclusive</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ── -->
+<section class="section" style="background:var(--bg);">
+  <div class="section-center">
+    <div class="section-label">Testimonials</div>
+    <h2 class="section-title">Stories from people we helped</h2>
+    <p class="section-sub">Real job seekers. Real results.</p>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"I had been applying for 3 months with zero callbacks. After using ResumePilot to tailor my resume for each role, I had 4 interviews within a week."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,#7C3AED,#5B21B6);">JA</div>
+        <div>
+          <div class="testimonial-name">John Adebayo</div>
+          <div class="testimonial-role">Software Engineer — Lagos, Nigeria</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"The ATS analyser is incredible. It showed me that I was missing 11 key terms from the job description. One optimisation and I got the interview."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,#3B82F6,#1D4ED8);">PS</div>
+        <div>
+          <div class="testimonial-name">Priya Sharma</div>
+          <div class="testimonial-role">Product Manager — Bangalore, India</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div class="testimonial-stars">★★★★★</div>
+      <p class="testimonial-text">"The Gulf region template was perfect — the right format, the right length, the right sections. Got hired at a top firm in Dubai within 3 weeks."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" style="background:linear-gradient(135deg,#F59E0B,#B45309);">HI</div>
+        <div>
+          <div class="testimonial-name">Hassan Ibrahim</div>
+          <div class="testimonial-role">Finance Analyst — Dubai, UAE</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section class="section section-center" id="pricing" style="background:white;">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title">Simple, transparent pricing</h2>
+  <p class="section-sub">Start free. Upgrade when you're ready to go all-in.</p>
+
+  <div class="pricing-grid">
+
+    <div class="pricing-card">
+      <div class="pricing-plan">Free</div>
+      <div class="pricing-price">$0</div>
+      <p class="pricing-desc">Everything you need to get started.</p>
+      <ul class="pricing-features">
+        <li><i class="fas fa-check"></i> 3 AI-generated resumes</li>
+        <li><i class="fas fa-check"></i> Job description analyser</li>
+        <li><i class="fas fa-check"></i> ATS score checker</li>
+        <li><i class="fas fa-check"></i> 4 resume templates</li>
+        <li><i class="fas fa-check"></i> PDF & DOCX download</li>
+        <li class="muted"><i class="fas fa-times"></i> Cover letter generator</li>
+        <li class="muted"><i class="fas fa-times"></i> Application tracker</li>
+      </ul>
+      <a href="auth.html" class="btn-pricing secondary">Get Started Free</a>
+    </div>
+
+    <div class="pricing-card featured">
+      <div class="pricing-badge">⚡ Most Popular</div>
+      <div class="pricing-plan">Pro</div>
+      <div class="pricing-price">$9<span>.99/mo</span></div>
+      <p class="pricing-desc">For serious job seekers who want every edge.</p>
+      <ul class="pricing-features">
+        <li><i class="fas fa-check"></i> Unlimited AI resumes</li>
+        <li><i class="fas fa-check"></i> Advanced JD analysis</li>
+        <li><i class="fas fa-check"></i> ATS score + optimisation</li>
+        <li><i class="fas fa-check"></i> All 9 regional templates</li>
+        <li><i class="fas fa-check"></i> Cover letter generator</li>
+        <li><i class="fas fa-check"></i> Application tracker (Kanban)</li>
+        <li><i class="fas fa-check"></i> Priority AI processing</li>
+      </ul>
+      <a href="auth.html" class="btn-pricing primary">Start Pro — $9.99/mo</a>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-plan">Business</div>
+      <div class="pricing-price">$29<span>.99/mo</span></div>
+      <p class="pricing-desc">For teams, recruiters, and career coaches.</p>
+      <ul class="pricing-features">
+        <li><i class="fas fa-check"></i> Everything in Pro</li>
+        <li><i class="fas fa-check"></i> Up to 10 team seats</li>
+        <li><i class="fas fa-check"></i> Bulk resume generation</li>
+        <li><i class="fas fa-check"></i> Custom branding</li>
+        <li><i class="fas fa-check"></i> Team analytics dashboard</li>
+        <li><i class="fas fa-check"></i> API access</li>
+        <li><i class="fas fa-check"></i> Dedicated support</li>
+      </ul>
+      <a href="auth.html" class="btn-pricing secondary">Start Business</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-banner">
+  <h2>Ready to land your next role?</h2>
+  <p>Join 50,000+ professionals who got hired with ResumePilot.</p>
+  <div class="hero-btns">
+    <a href="auth.html" class="btn-hero-primary"><i class="fas fa-rocket"></i> Build My Resume — Free</a>
+    <a href="dashboard.html" class="btn-hero-secondary" style="border-color:rgba(255,255,255,0.2);color:white;background:rgba(255,255,255,0.08);"><i class="fas fa-play-circle"></i> See the Demo</a>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">✈</div>
+        <span class="footer-logo-text">ResumePilot</span>
+      </div>
+      <p class="footer-desc">AI-powered resume builder trusted by job seekers across 40+ countries. Built to help you get hired, faster.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analyzer.html">Job Analyser</a>
+      <a href="generator.html">Resume Generator</a>
+      <a href="cover-letter.html">Cover Letters</a>
+      <a href="tracker.html">App Tracker</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="auth.html">Sign In</a>
+      <a href="auth.html">Create Account</a>
+      <a href="profile.html">My Profile</a>
+      <a href="settings.html">Settings</a>
+      <a href="admin.html">Admin Panel</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 ResumePilot. All rights reserved.</div>
+    <div class="footer-socials">
+      <a href="#" class="footer-social"><i class="fab fa-twitter"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.animation='fadeUp 0.6s ease forwards'; } });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card, .step, .region-card, .testimonial-card, .pricing-card').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

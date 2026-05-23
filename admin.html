@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumePilot — Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">✈</div>
+      <span class="logo-text">ResumePilot</span>
+    </div>
+    <div class="logo-sub">AI Resume Builder</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+    <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+    <div class="nav-section-label">AI Tools</div>
+    <a href="analyzer.html" class="nav-item"><i class="fas fa-search-plus"></i><span>Job Analyzer</span></a>
+    <a href="generator.html" class="nav-item"><i class="fas fa-magic"></i><span>Resume Generator</span><span class="nav-badge">AI</span></a>
+    <a href="preview.html" class="nav-item"><i class="fas fa-eye"></i><span>Preview</span></a>
+    <a href="cover-letter.html" class="nav-item"><i class="fas fa-envelope-open-text"></i><span>Cover Letter</span></a>
+    <div class="nav-section-label">Tracking</div>
+    <a href="tracker.html" class="nav-item"><i class="fas fa-columns"></i><span>App Tracker</span></a>
+    <div class="nav-section-label">Account</div>
+    <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+    <a href="admin.html" class="nav-item active"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="plan-card">
+      <div class="plan-label">Admin Access</div>
+      <div class="plan-name">Super Admin</div>
+      <button class="btn-upgrade" onclick="window.location.href='dashboard.html'">← Back to App</button>
+    </div>
+  </div>
+</aside>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="App.toggleSidebar()"><i class="fas fa-bars"></i></button>
+  <div class="navbar-search">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" placeholder="Search users, templates...">
+  </div>
+  <div class="navbar-actions">
+    <div class="dropdown">
+      <button class="navbar-btn" data-dropdown><i class="fas fa-bell"></i><span class="notif-dot"></span></button>
+      <div class="dropdown-menu" style="width:280px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.875rem;">Admin Alerts</div>
+        <div class="dropdown-item"><i class="fas fa-user-plus" style="color:var(--success)"></i> 12 new signups today</div>
+        <div class="dropdown-item"><i class="fas fa-credit-card" style="color:var(--primary)"></i> 3 new Pro upgrades</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <div class="user-avatar" data-dropdown style="background:linear-gradient(135deg,#dc2626,#7f1d1d);">SA</div>
+      <div class="dropdown-menu">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-weight:600;font-size:0.875rem;">Super Admin</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">admin@resumepilot.app</div>
+        </div>
+        <a href="dashboard.html" class="dropdown-item"><i class="fas fa-arrow-left"></i> Back to App</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="auth.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;"></div>
+
+<!-- MAIN -->
+<div class="main-content">
+  <div class="page-content">
+
+    <!-- HEADER -->
+    <div class="admin-header-bar slide-up">
+      <div>
+        <h1 class="page-title" style="display:flex;align-items:center;gap:10px;">
+          Admin Panel <span class="admin-badge"><i class="fas fa-shield-alt"></i> Super Admin</span>
+        </h1>
+        <p class="page-subtitle">Platform management, analytics, and user administration.</p>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-secondary" onclick="Admin.exportCSV()"><i class="fas fa-download"></i> Export</button>
+        <button class="btn btn-primary" onclick="Admin.refreshData()"><i class="fas fa-sync"></i> Refresh</button>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="admin-tabs slide-up stagger-1" style="margin-bottom:24px;">
+      <button class="admin-tab active" onclick="Admin.switchTab('users', this)"><i class="fas fa-users"></i> Users</button>
+      <button class="admin-tab" onclick="Admin.switchTab('templates', this)"><i class="fas fa-palette"></i> Templates</button>
+      <button class="admin-tab" onclick="Admin.switchTab('ai-usage', this)"><i class="fas fa-robot"></i> AI Usage</button>
+      <button class="admin-tab" onclick="Admin.switchTab('revenue', this)"><i class="fas fa-chart-line"></i> Revenue</button>
+      <button class="admin-tab" onclick="Admin.switchTab('downloads', this)"><i class="fas fa-download"></i> Downloads</button>
+    </div>
+
+    <!-- ======================== USERS TAB ======================== -->
+    <div class="admin-tab-content active" id="tab-users">
+
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:#DBEAFE;color:#1E40AF"><i class="fas fa-users"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">1,284</div>
+            <div class="stat-card-label">Total Users</div>
+            <div class="stat-growth positive"><i class="fas fa-arrow-up"></i> +12.4% this month</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--success-light);color:var(--success)"><i class="fas fa-user-check"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">342</div>
+            <div class="stat-card-label">Pro Users</div>
+            <div class="stat-growth positive"><i class="fas fa-arrow-up"></i> +8.2% this month</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--warning-light);color:var(--warning)"><i class="fas fa-user-clock"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">87</div>
+            <div class="stat-card-label">New Today</div>
+            <div class="stat-growth positive"><i class="fas fa-arrow-up"></i> +23 vs yesterday</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--danger-light);color:var(--danger)"><i class="fas fa-user-minus"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">4.2%</div>
+            <div class="stat-card-label">Churn Rate</div>
+            <div class="stat-growth negative"><i class="fas fa-arrow-down"></i> -0.5% vs last month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-controls">
+        <div class="table-search">
+          <i class="fas fa-search table-search-icon"></i>
+          <input type="text" placeholder="Search users..." oninput="Admin.filterUsers(this.value)">
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <select class="filter-select" onchange="Admin.filterByPlan(this.value)">
+            <option value="">All Plans</option>
+            <option value="free">Free</option>
+            <option value="pro">Pro</option>
+            <option value="business">Business</option>
+          </select>
+          <button class="btn btn-secondary btn-sm" onclick="Admin.exportCSV()"><i class="fas fa-file-csv"></i> CSV</button>
+        </div>
+      </div>
+
+      <div class="admin-table-wrap">
+        <table class="admin-table" id="usersTable">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Email</th>
+              <th>Plan</th>
+              <th>Resumes</th>
+              <th>Joined</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+        <div class="pagination" id="usersPagination">
+          <div class="pagination-info">Showing 1–10 of 1,284 users</div>
+          <div class="pagination-btns">
+            <button class="page-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">...</button>
+            <button class="page-btn">129</button>
+            <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== TEMPLATES TAB ======================== -->
+    <div class="admin-tab-content" id="tab-templates">
+      <div class="table-controls">
+        <h3 style="font-size:1rem;font-weight:700;">Template Library</h3>
+        <button class="btn btn-primary" onclick="Admin.uploadTemplate()"><i class="fas fa-upload"></i> Upload Template</button>
+      </div>
+      <div class="templates-admin-grid" id="adminTemplatesGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- ======================== AI USAGE TAB ======================== -->
+    <div class="admin-tab-content" id="tab-ai-usage">
+
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--primary-light);color:var(--primary)"><i class="fas fa-magic"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">8,492</div>
+            <div class="stat-card-label">Resumes Generated</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--info-light);color:var(--info)"><i class="fas fa-search-plus"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">12,847</div>
+            <div class="stat-card-label">Analyses Run</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--success-light);color:var(--success)"><i class="fas fa-envelope"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">3,201</div>
+            <div class="stat-card-label">Cover Letters</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--warning-light);color:var(--warning)"><i class="fas fa-coins"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">$1,284</div>
+            <div class="stat-card-label">AI Cost / Month</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-charts-grid">
+        <div class="chart-card">
+          <div class="chart-card-title">Daily AI Requests</div>
+          <div class="chart-card-sub">Last 30 days</div>
+          <div class="chart-wrap"><canvas id="aiRequestsChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Usage by Feature</div>
+          <div class="chart-card-sub">Current month</div>
+          <div class="chart-wrap"><canvas id="aiFeatureChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== REVENUE TAB ======================== -->
+    <div class="admin-tab-content" id="tab-revenue">
+
+      <div class="revenue-kpis">
+        <div class="kpi-card">
+          <div class="kpi-value">$28,490</div>
+          <div class="kpi-label">MRR</div>
+          <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +18.2% MoM</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">$341,880</div>
+          <div class="kpi-label">ARR</div>
+          <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +22.4% YoY</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">$29.48</div>
+          <div class="kpi-label">Avg. Revenue per User</div>
+          <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +3.1% MoM</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">26.6%</div>
+          <div class="kpi-label">Free → Pro Conversion</div>
+          <div class="kpi-change positive"><i class="fas fa-arrow-up"></i> +1.8% MoM</div>
+        </div>
+      </div>
+
+      <div class="admin-charts-grid">
+        <div class="chart-card">
+          <div class="chart-card-title">Monthly Recurring Revenue</div>
+          <div class="chart-card-sub">Last 12 months</div>
+          <div class="chart-wrap"><canvas id="mrrChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-card-title">Plan Distribution</div>
+          <div class="chart-card-sub">Current subscribers</div>
+          <div class="chart-wrap"><canvas id="planChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== DOWNLOADS TAB ======================== -->
+    <div class="admin-tab-content" id="tab-downloads">
+
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--danger-light);color:var(--danger)"><i class="fas fa-file-pdf"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">5,892</div>
+            <div class="stat-card-label">PDF Downloads</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:#DBEAFE;color:#1e40af"><i class="fas fa-file-word"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">2,341</div>
+            <div class="stat-card-label">DOCX Downloads</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--success-light);color:var(--success)"><i class="fas fa-share-alt"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">892</div>
+            <div class="stat-card-label">Shared Links</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background:var(--warning-light);color:var(--warning)"><i class="fas fa-star"></i></div>
+          <div class="stat-card-body">
+            <div class="stat-card-value">4.8/5</div>
+            <div class="stat-card-label">Resume Quality Score</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card" style="margin-bottom:20px;">
+        <div class="chart-card-title">Daily Downloads</div>
+        <div class="chart-card-sub">Last 30 days — PDF vs DOCX</div>
+        <div class="chart-wrap"><canvas id="downloadsChart"></canvas></div>
+      </div>
+
+      <div class="table-controls">
+        <h4 style="font-weight:700;">Recent Downloads</h4>
+        <button class="btn btn-secondary btn-sm" onclick="Admin.exportCSV()"><i class="fas fa-download"></i> Export CSV</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Resume</th>
+              <th>Format</th>
+              <th>Template</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="downloadsTableBody">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="analyzer.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Analyze</span></a>
+  <a href="generator.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Generate</span></a>
+  <a href="tracker.html" class="bottom-nav-item"><i class="fas fa-columns"></i><span>Tracker</span></a>
+  <a href="admin.html" class="bottom-nav-item active"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
+</nav>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="app.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

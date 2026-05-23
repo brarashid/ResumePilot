@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumePilot — Job Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="analyzer.css">
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo"><div class="logo-mark"><div class="logo-icon">✈</div><span class="logo-text">ResumePilot</span></div><div class="logo-sub">AI Resume Builder</div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+    <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+    <div class="nav-section-label">AI Tools</div>
+    <a href="analyzer.html" class="nav-item active"><i class="fas fa-search-plus"></i><span>Job Analyzer</span></a>
+    <a href="generator.html" class="nav-item"><i class="fas fa-magic"></i><span>Resume Generator</span><span class="nav-badge">AI</span></a>
+    <a href="preview.html" class="nav-item"><i class="fas fa-eye"></i><span>Preview</span></a>
+    <a href="cover-letter.html" class="nav-item"><i class="fas fa-envelope-open-text"></i><span>Cover Letter</span></a>
+    <div class="nav-section-label">Tracking</div>
+    <a href="tracker.html" class="nav-item"><i class="fas fa-columns"></i><span>App Tracker</span></a>
+    <div class="nav-section-label">Account</div>
+    <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
+    <a href="admin.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
+  </nav>
+  <div class="sidebar-footer"><div class="plan-card"><div class="plan-label">Current Plan</div><div class="plan-name">Free Plan</div><div class="usage-bar-wrap"><div class="usage-bar-label"><span>Resumes</span><span>2/3</span></div><div class="usage-bar"><div class="usage-bar-fill" data-width="67" style="width:0%"></div></div></div><button class="btn-upgrade" onclick="window.location.href='settings.html'">⚡ Upgrade</button></div></div>
+</aside>
+
+<nav class="navbar" id="navbar">
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="App.toggleSidebar()"><i class="fas fa-bars"></i></button>
+  <div class="navbar-search"><i class="fas fa-search search-icon"></i><input type="text" placeholder="Search..."></div>
+  <div class="navbar-actions">
+    <div class="dropdown"><button class="navbar-btn" data-dropdown><i class="fas fa-bell"></i></button></div>
+    <div class="dropdown"><div class="user-avatar" data-dropdown>JA</div>
+      <div class="dropdown-menu"><a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a><div class="dropdown-divider"></div><a class="dropdown-item danger" href="auth.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a></div>
+    </div>
+  </div>
+</nav>
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;"></div>
+
+<div class="main-content">
+  <div class="page-content">
+
+    <div class="slide-up" style="margin-bottom:24px;">
+      <h1>Job Analyzer</h1>
+      <p>Paste a job description to get your match score, missing keywords, and AI recommendations</p>
+    </div>
+
+    <div class="analyzer-layout">
+
+      <!-- INPUT PANEL -->
+      <div class="analyzer-input slide-up stagger-1">
+        <div class="card" style="margin-bottom:16px;">
+          <h3 class="card-title" style="margin-bottom:16px;"><i class="fas fa-link" style="color:var(--primary)"></i> Paste Job URL</h3>
+          <div style="display:flex;gap:10px;">
+            <input type="url" class="form-input" id="jobUrl" placeholder="https://jobs.google.com/..." style="flex:1;">
+            <button class="btn btn-outline" onclick="extractFromUrl()"><i class="fas fa-download"></i> Extract</button>
+          </div>
+        </div>
+
+        <div class="divider-text">OR</div>
+
+        <div class="card">
+          <h3 class="card-title" style="margin-bottom:16px;"><i class="fas fa-file-alt" style="color:var(--primary)"></i> Paste Job Description</h3>
+          <textarea class="form-textarea" id="jobDescription" placeholder="Paste the full job description here..." style="min-height:200px;"></textarea>
+          <div style="font-size:0.75rem;color:var(--text-muted);margin-top:4px;" id="jdCount">0 characters</div>
+
+          <div style="margin-top:16px;">
+            <label class="form-label"><i class="fas fa-globe"></i> Target Region</label>
+            <div class="region-grid">
+              <div class="region-card active" data-region="Africa" onclick="selectRegion(this)">
+                <div class="region-icon">🌍</div>
+                <div class="region-name">Africa</div>
+              </div>
+              <div class="region-card" data-region="US/Canada" onclick="selectRegion(this)">
+                <div class="region-icon">🇺🇸</div>
+                <div class="region-name">US/Canada</div>
+              </div>
+              <div class="region-card" data-region="Europe" onclick="selectRegion(this)">
+                <div class="region-icon">🇪🇺</div>
+                <div class="region-name">Europe</div>
+              </div>
+              <div class="region-card" data-region="Middle East" onclick="selectRegion(this)">
+                <div class="region-icon">🏙️</div>
+                <div class="region-name">Middle East</div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="analyzeJob()" id="analyzeBtn">
+            <i class="fas fa-brain"></i> Analyze Job Description
+          </button>
+        </div>
+      </div>
+
+      <!-- RESULTS PANEL -->
+      <div class="analyzer-results" id="resultsPanel" style="display:none;">
+
+        <!-- MATCH SCORE -->
+        <div class="card result-card slide-up">
+          <div class="score-hero">
+            <div class="ats-ring" id="analyzerRing">
+              <svg viewBox="0 0 120 120" width="120" height="120">
+                <circle class="ats-ring-bg" cx="60" cy="60" r="52"/>
+                <circle class="ats-ring-fill" cx="60" cy="60" r="52"/>
+              </svg>
+              <div class="ats-score-text">
+                <div class="ats-score-num" id="matchScoreNum">0</div>
+                <div class="ats-score-label">Match</div>
+              </div>
+            </div>
+            <div class="score-info">
+              <h3 id="scoreLabel">Calculating...</h3>
+              <p id="scoreDesc"></p>
+              <div style="margin-top:12px;" id="scoreMeter"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KEYWORDS -->
+        <div class="card result-card slide-up stagger-1">
+          <div class="card-header">
+            <h3 class="card-title">🔑 Keyword Analysis</h3>
+          </div>
+          <div style="margin-bottom:16px;">
+            <div style="font-size:0.8rem;font-weight:700;color:var(--success);margin-bottom:8px;"><i class="fas fa-check-circle"></i> Matched Keywords</div>
+            <div id="matchedKeywords" class="keywords-wrap"></div>
+          </div>
+          <div>
+            <div style="font-size:0.8rem;font-weight:700;color:var(--danger);margin-bottom:8px;"><i class="fas fa-times-circle"></i> Missing Keywords</div>
+            <div id="missingKeywords" class="keywords-wrap"></div>
+          </div>
+        </div>
+
+        <!-- SKILLS GAP -->
+        <div class="card result-card slide-up stagger-2">
+          <h3 class="card-title" style="margin-bottom:16px;">📊 Skills Gap Analysis</h3>
+          <div id="skillsGap"></div>
+        </div>
+
+        <!-- AI RECOMMENDATIONS -->
+        <div class="card result-card slide-up stagger-3">
+          <h3 class="card-title" style="margin-bottom:16px;">🤖 AI Recommendations</h3>
+          <div id="recommendations"></div>
+        </div>
+
+        <!-- CTA -->
+        <div class="card result-card" style="background:linear-gradient(135deg,#7C3AED,#9333EA);border:none;">
+          <div style="color:white;text-align:center;">
+            <div style="font-size:1.5rem;margin-bottom:8px;">🚀</div>
+            <h3 style="font-size:1rem;margin-bottom:8px;color:white;">Ready to generate a tailored resume?</h3>
+            <p style="color:rgba(255,255,255,0.8);font-size:0.875rem;margin-bottom:16px;">Use this analysis to create an ATS-optimized resume</p>
+            <button class="btn" style="background:white;color:var(--primary);font-weight:700;width:100%;" onclick="goToGenerator()">
+              <i class="fas fa-magic"></i> Generate Tailored Resume
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- EMPTY RESULTS STATE -->
+      <div class="analyzer-empty" id="emptyResults">
+        <div class="empty-state">
+          <div class="empty-state-icon" style="font-size:2.5rem;width:80px;height:80px;">🎯</div>
+          <h3>Analyze a job to see results</h3>
+          <p>Paste a job description on the left and click Analyze to see your match score, keywords, and AI recommendations</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="analyzer.html" class="bottom-nav-item active"><i class="fas fa-search"></i><span>Analyze</span></a>
+  <a href="generator.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Generate</span></a>
+  <a href="tracker.html" class="bottom-nav-item"><i class="fas fa-columns"></i><span>Tracker</span></a>
+  <a href="profile.html" class="bottom-nav-item"><i class="fas fa-user"></i><span>Profile</span></a>
+</nav>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="analyzer.js"></script>
+</body>
+</html>

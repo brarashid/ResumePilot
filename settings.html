@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumePilot — Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">
+      <div class="logo-icon">✈</div>
+      <span class="logo-text">ResumePilot</span>
+    </div>
+    <div class="logo-sub">AI Resume Builder</div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Main</div>
+    <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
+    <a href="profile.html" class="nav-item"><i class="fas fa-user-circle"></i><span>My Profile</span></a>
+    <div class="nav-section-label">AI Tools</div>
+    <a href="analyzer.html" class="nav-item"><i class="fas fa-search-plus"></i><span>Job Analyzer</span></a>
+    <a href="generator.html" class="nav-item"><i class="fas fa-magic"></i><span>Resume Generator</span><span class="nav-badge">AI</span></a>
+    <a href="preview.html" class="nav-item"><i class="fas fa-eye"></i><span>Preview</span></a>
+    <a href="cover-letter.html" class="nav-item"><i class="fas fa-envelope-open-text"></i><span>Cover Letter</span></a>
+    <div class="nav-section-label">Tracking</div>
+    <a href="tracker.html" class="nav-item"><i class="fas fa-columns"></i><span>App Tracker</span></a>
+    <div class="nav-section-label">Account</div>
+    <a href="settings.html" class="nav-item active"><i class="fas fa-cog"></i><span>Settings</span></a>
+    <a href="admin.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="plan-card">
+      <div class="plan-label">Current Plan</div>
+      <div class="plan-name">Free Plan</div>
+      <div class="usage-bar-wrap">
+        <div class="usage-bar-label"><span>Resumes</span><span>2/3 used</span></div>
+        <div class="usage-bar"><div class="usage-bar-fill" data-width="67" style="width:0%"></div></div>
+      </div>
+      <button class="btn-upgrade">⚡ Upgrade to Pro</button>
+    </div>
+  </div>
+</aside>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="App.toggleSidebar()"><i class="fas fa-bars"></i></button>
+  <div class="navbar-search">
+    <i class="fas fa-search search-icon"></i>
+    <input type="text" placeholder="Search settings...">
+  </div>
+  <div class="navbar-actions">
+    <div class="dropdown">
+      <button class="navbar-btn" data-dropdown><i class="fas fa-bell"></i></button>
+      <div class="dropdown-menu" style="width:280px;">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.875rem;">Notifications</div>
+        <div class="dropdown-item"><i class="fas fa-check-circle" style="color:var(--success)"></i> Profile updated</div>
+      </div>
+    </div>
+    <div class="dropdown">
+      <div class="user-avatar" data-dropdown>JA</div>
+      <div class="dropdown-menu">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);">
+          <div style="font-weight:600;font-size:0.875rem;">John Adebayo</div>
+          <div style="font-size:0.75rem;color:var(--text-muted);">john@example.com</div>
+        </div>
+        <a href="profile.html" class="dropdown-item"><i class="fas fa-user"></i> My Profile</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item danger" href="auth.html"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div id="sidebarOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99;"></div>
+
+<!-- MAIN -->
+<div class="main-content">
+  <div class="page-content">
+
+    <div class="page-header slide-up">
+      <div>
+        <h1 class="page-title">Settings</h1>
+        <p class="page-subtitle">Manage your account, notifications, and subscription.</p>
+      </div>
+    </div>
+
+    <div class="settings-layout">
+
+      <!-- SETTINGS NAV -->
+      <div class="settings-nav slide-up">
+        <a class="settings-nav-item active" href="#profile-photo" onclick="Settings.scrollTo('profile-photo')"><i class="fas fa-camera"></i> Profile Photo</a>
+        <a class="settings-nav-item" href="#account" onclick="Settings.scrollTo('account')"><i class="fas fa-user-shield"></i> Account</a>
+        <a class="settings-nav-item" href="#notifications" onclick="Settings.scrollTo('notifications')"><i class="fas fa-bell"></i> Notifications</a>
+        <a class="settings-nav-item" href="#subscription" onclick="Settings.scrollTo('subscription')"><i class="fas fa-crown"></i> Subscription</a>
+        <a class="settings-nav-item" href="#danger" onclick="Settings.scrollTo('danger')"><i class="fas fa-exclamation-triangle"></i> Danger Zone</a>
+      </div>
+
+      <!-- SETTINGS SECTIONS -->
+      <div class="settings-content slide-up stagger-1">
+
+        <!-- PROFILE PHOTO -->
+        <div class="settings-section" id="profile-photo">
+          <div class="settings-section-header">
+            <div class="settings-section-title"><i class="fas fa-camera"></i> Profile Photo</div>
+          </div>
+          <div class="settings-section-body">
+            <div class="photo-upload-area">
+              <div class="avatar-preview" id="avatarPreview">JA
+                <img id="avatarImg" src="" alt="Avatar">
+              </div>
+              <div class="photo-upload-actions">
+                <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="Settings.previewPhoto(event)">
+                <button class="btn btn-primary btn-sm" onclick="document.getElementById('photoInput').click()">
+                  <i class="fas fa-upload"></i> Upload Photo
+                </button>
+                <button class="btn btn-secondary btn-sm" onclick="Settings.removePhoto()">
+                  <i class="fas fa-trash"></i> Remove Photo
+                </button>
+                <div class="photo-upload-hint">JPG, PNG or GIF · Max 2MB · Square recommended</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div class="settings-section" id="account">
+          <div class="settings-section-header">
+            <div class="settings-section-title"><i class="fas fa-user-shield"></i> Account Details</div>
+            <button class="btn btn-secondary btn-sm" onclick="Settings.saveAccount()"><i class="fas fa-save"></i> Save</button>
+          </div>
+          <div class="settings-section-body">
+            <div class="settings-form-row">
+              <div class="settings-form-group">
+                <label class="settings-label">Full Name</label>
+                <input type="text" class="settings-input" id="settName" value="John Adebayo">
+              </div>
+              <div class="settings-form-group">
+                <label class="settings-label">Email Address</label>
+                <input type="email" class="settings-input" id="settEmail" value="john.adebayo@example.com">
+              </div>
+            </div>
+
+            <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+              <h4 style="font-size:0.875rem;font-weight:700;margin-bottom:14px;">Change Password</h4>
+              <div class="settings-form-row">
+                <div class="settings-form-group">
+                  <label class="settings-label">Current Password</label>
+                  <input type="password" class="settings-input" id="settOldPass" placeholder="Enter current password">
+                </div>
+                <div class="settings-form-group">
+                  <label class="settings-label">New Password</label>
+                  <input type="password" class="settings-input" id="settNewPass" placeholder="Enter new password">
+                </div>
+              </div>
+              <div class="settings-form-row">
+                <div class="settings-form-group">
+                  <label class="settings-label">Confirm New Password</label>
+                  <input type="password" class="settings-input" id="settConfirmPass" placeholder="Confirm new password">
+                </div>
+              </div>
+              <button class="btn btn-primary" onclick="Settings.changePassword()" style="margin-top:4px;">Update Password</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="settings-section" id="notifications">
+          <div class="settings-section-header">
+            <div class="settings-section-title"><i class="fas fa-bell"></i> Notifications</div>
+          </div>
+          <div class="settings-section-body">
+            <h4 style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Email Preferences</h4>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-label">Resume Generated</div>
+                <div class="toggle-desc">Get notified when your resume is ready</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="Settings.saveNotif()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-label">Job Match Alerts</div>
+                <div class="toggle-desc">Weekly digest of new job matches</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="Settings.saveNotif()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-label">Application Reminders</div>
+                <div class="toggle-desc">Follow-up reminders for active applications</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="Settings.saveNotif()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-label">Marketing Emails</div>
+                <div class="toggle-desc">Tips, updates, and product news</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" onchange="Settings.saveNotif()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+
+            <h4 style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:20px;margin-bottom:12px;">Push Preferences</h4>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-label">Browser Notifications</div>
+                <div class="toggle-desc">Real-time alerts in your browser</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="Settings.saveNotif()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <div class="toggle-label">Interview Reminders</div>
+                <div class="toggle-desc">1-hour push reminder before interviews</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked onchange="Settings.saveNotif()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUBSCRIPTION -->
+        <div class="settings-section" id="subscription">
+          <div class="settings-section-header">
+            <div class="settings-section-title"><i class="fas fa-crown"></i> Subscription & Usage</div>
+          </div>
+          <div class="settings-section-body">
+            <div class="usage-stats-grid" style="margin-bottom:24px;">
+              <div class="usage-stat-item">
+                <div class="usage-stat-value">2</div>
+                <div class="usage-stat-label">Resumes Created</div>
+                <div class="usage-stat-max">of 3 free</div>
+              </div>
+              <div class="usage-stat-item">
+                <div class="usage-stat-value">1</div>
+                <div class="usage-stat-label">Analyses Run</div>
+                <div class="usage-stat-max">of 3 free</div>
+              </div>
+              <div class="usage-stat-item">
+                <div class="usage-stat-value">0</div>
+                <div class="usage-stat-label">Cover Letters</div>
+                <div class="usage-stat-max">Pro only</div>
+              </div>
+            </div>
+
+            <div class="plan-cards-grid">
+              <!-- Free -->
+              <div class="plan-card-option current" id="planFree">
+                <div class="plan-badge-current">Current</div>
+                <div class="plan-card-name">Free</div>
+                <div class="plan-card-price">$0<span>/month</span></div>
+                <div class="plan-feature-list">
+                  <div class="plan-feature"><i class="fas fa-check"></i> 3 resume generations</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> 3 job analyses</div>
+                  <div class="plan-feature locked"><i class="fas fa-lock"></i> Cover letters</div>
+                  <div class="plan-feature locked"><i class="fas fa-lock"></i> PDF downloads</div>
+                </div>
+              </div>
+
+              <!-- Pro -->
+              <div class="plan-card-option" id="planPro">
+                <div class="plan-card-name">Pro ⚡</div>
+                <div class="plan-card-price">$9.99<span>/month</span></div>
+                <div class="plan-feature-list">
+                  <div class="plan-feature"><i class="fas fa-check"></i> Unlimited resumes</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> Unlimited analyses</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> Cover letters</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> PDF + DOCX downloads</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> 9 premium templates</div>
+                </div>
+                <button class="btn btn-primary" style="width:100%;margin-top:16px;" onclick="Settings.upgradePlan('pro')">Upgrade Now</button>
+              </div>
+
+              <!-- Business -->
+              <div class="plan-card-option" id="planBusiness">
+                <div class="plan-card-name">Business 🏢</div>
+                <div class="plan-card-price">$29.99<span>/month</span></div>
+                <div class="plan-feature-list">
+                  <div class="plan-feature"><i class="fas fa-check"></i> Everything in Pro</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> 5 team seats</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> Admin dashboard</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> Priority support</div>
+                  <div class="plan-feature"><i class="fas fa-check"></i> API access</div>
+                </div>
+                <button class="btn btn-secondary" style="width:100%;margin-top:16px;" onclick="Settings.upgradePlan('business')">Contact Sales</button>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;gap:10px;">
+              <button class="btn btn-secondary btn-sm" onclick="Settings.cancelSubscription()">
+                <i class="fas fa-times-circle"></i> Cancel Subscription
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- DANGER ZONE -->
+        <div class="settings-section danger-zone-section" id="danger">
+          <div class="settings-section-header">
+            <div class="settings-section-title"><i class="fas fa-exclamation-triangle"></i> Danger Zone</div>
+          </div>
+          <div class="settings-section-body">
+            <div class="danger-action">
+              <div class="danger-action-info">
+                <div class="danger-action-label">Export All Data</div>
+                <div class="danger-action-desc">Download a ZIP of all your resumes, cover letters, and data.</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="Settings.exportData()">
+                <i class="fas fa-download"></i> Export
+              </button>
+            </div>
+            <div class="danger-action">
+              <div class="danger-action-info">
+                <div class="danger-action-label">Sign Out All Devices</div>
+                <div class="danger-action-desc">Revoke all active sessions across all devices.</div>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="Settings.signOutAll()">
+                <i class="fas fa-sign-out-alt"></i> Sign Out All
+              </button>
+            </div>
+            <div class="danger-action">
+              <div class="danger-action-info">
+                <div class="danger-action-label">Delete Account</div>
+                <div class="danger-action-desc">Permanently delete your account and all associated data. This cannot be undone.</div>
+              </div>
+              <button class="btn btn-danger btn-sm" onclick="App.openModal('deleteModal')">
+                <i class="fas fa-trash"></i> Delete Account
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE ACCOUNT MODAL -->
+<div class="modal-overlay" id="deleteModal">
+  <div class="modal" style="max-width:440px;">
+    <div class="modal-header">
+      <h3 class="modal-title" style="color:var(--danger)"><i class="fas fa-exclamation-triangle"></i> Delete Account</h3>
+      <button class="modal-close" onclick="App.closeModal('deleteModal')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:16px;">
+        This action <strong>cannot be undone</strong>. All your resumes, cover letters, and account data will be permanently deleted.
+      </p>
+      <div class="form-group">
+        <label class="form-label">Type <strong>DELETE</strong> to confirm</label>
+        <input type="text" class="form-input" id="deleteConfirmInput" placeholder="Type DELETE here">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="App.closeModal('deleteModal')">Cancel</button>
+      <button class="btn btn-danger" onclick="Settings.confirmDelete()">
+        <i class="fas fa-trash"></i> Delete My Account
+      </button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav">
+  <a href="dashboard.html" class="bottom-nav-item"><i class="fas fa-home"></i><span>Home</span></a>
+  <a href="analyzer.html" class="bottom-nav-item"><i class="fas fa-search"></i><span>Analyze</span></a>
+  <a href="generator.html" class="bottom-nav-item"><i class="fas fa-magic"></i><span>Generate</span></a>
+  <a href="tracker.html" class="bottom-nav-item"><i class="fas fa-columns"></i><span>Tracker</span></a>
+  <a href="profile.html" class="bottom-nav-item active"><i class="fas fa-user"></i><span>Profile</span></a>
+</nav>
+
+<div id="toastContainer" class="toast-container"></div>
+<script src="app.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>
