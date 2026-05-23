@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResumePilot — Job Analyzer</title>
+  <title>ResumePilot â€” Job Analyzer</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -12,7 +12,7 @@
 <body>
 
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-logo"><div class="logo-mark"><div class="logo-icon">✈</div><span class="logo-text">ResumePilot</span></div><div class="logo-sub">AI Resume Builder</div></div>
+  <div class="sidebar-logo"><img src="images/resumepilot logo2.png" alt="ResumePilot" class="sidebar-logo-img"></div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
     <a href="dashboard.html" class="nav-item"><i class="fas fa-th-large"></i><span>Dashboard</span></a>
@@ -28,7 +28,7 @@
     <a href="settings.html" class="nav-item"><i class="fas fa-cog"></i><span>Settings</span></a>
     <a href="admin.html" class="nav-item"><i class="fas fa-shield-alt"></i><span>Admin</span></a>
   </nav>
-  <div class="sidebar-footer"><div class="plan-card"><div class="plan-label">Current Plan</div><div class="plan-name">Free Plan</div><div class="usage-bar-wrap"><div class="usage-bar-label"><span>Resumes</span><span>2/3</span></div><div class="usage-bar"><div class="usage-bar-fill" data-width="67" style="width:0%"></div></div></div><button class="btn-upgrade" onclick="window.location.href='settings.html'">⚡ Upgrade</button></div></div>
+  <div class="sidebar-footer"><div class="plan-card"><div class="plan-label">Current Plan</div><div class="plan-name">Free Plan</div><div class="usage-bar-wrap"><div class="usage-bar-label"><span>Resumes</span><span>2/3</span></div><div class="usage-bar"><div class="usage-bar-fill" data-width="67" style="width:0%"></div></div></div><button class="btn-upgrade" onclick="window.location.href='settings.html'">âš¡ Upgrade</button></div></div>
 </aside>
 
 <nav class="navbar" id="navbar">
@@ -74,19 +74,19 @@
             <label class="form-label"><i class="fas fa-globe"></i> Target Region</label>
             <div class="region-grid">
               <div class="region-card active" data-region="Africa" onclick="selectRegion(this)">
-                <div class="region-icon">🌍</div>
+                <div class="region-icon">ðŸŒ</div>
                 <div class="region-name">Africa</div>
               </div>
               <div class="region-card" data-region="US/Canada" onclick="selectRegion(this)">
-                <div class="region-icon">🇺🇸</div>
+                <div class="region-icon">ðŸ‡ºðŸ‡¸</div>
                 <div class="region-name">US/Canada</div>
               </div>
               <div class="region-card" data-region="Europe" onclick="selectRegion(this)">
-                <div class="region-icon">🇪🇺</div>
+                <div class="region-icon">ðŸ‡ªðŸ‡º</div>
                 <div class="region-name">Europe</div>
               </div>
               <div class="region-card" data-region="Middle East" onclick="selectRegion(this)">
-                <div class="region-icon">🏙️</div>
+                <div class="region-icon">ðŸ™ï¸</div>
                 <div class="region-name">Middle East</div>
               </div>
             </div>
@@ -125,7 +125,7 @@
         <!-- KEYWORDS -->
         <div class="card result-card slide-up stagger-1">
           <div class="card-header">
-            <h3 class="card-title">🔑 Keyword Analysis</h3>
+            <h3 class="card-title">ðŸ”‘ Keyword Analysis</h3>
           </div>
           <div style="margin-bottom:16px;">
             <div style="font-size:0.8rem;font-weight:700;color:var(--success);margin-bottom:8px;"><i class="fas fa-check-circle"></i> Matched Keywords</div>
@@ -139,20 +139,20 @@
 
         <!-- SKILLS GAP -->
         <div class="card result-card slide-up stagger-2">
-          <h3 class="card-title" style="margin-bottom:16px;">📊 Skills Gap Analysis</h3>
+          <h3 class="card-title" style="margin-bottom:16px;">ðŸ“Š Skills Gap Analysis</h3>
           <div id="skillsGap"></div>
         </div>
 
         <!-- AI RECOMMENDATIONS -->
         <div class="card result-card slide-up stagger-3">
-          <h3 class="card-title" style="margin-bottom:16px;">🤖 AI Recommendations</h3>
+          <h3 class="card-title" style="margin-bottom:16px;">ðŸ¤– AI Recommendations</h3>
           <div id="recommendations"></div>
         </div>
 
         <!-- CTA -->
         <div class="card result-card" style="background:linear-gradient(135deg,#7C3AED,#9333EA);border:none;">
           <div style="color:white;text-align:center;">
-            <div style="font-size:1.5rem;margin-bottom:8px;">🚀</div>
+            <div style="font-size:1.5rem;margin-bottom:8px;">ðŸš€</div>
             <h3 style="font-size:1rem;margin-bottom:8px;color:white;">Ready to generate a tailored resume?</h3>
             <p style="color:rgba(255,255,255,0.8);font-size:0.875rem;margin-bottom:16px;">Use this analysis to create an ATS-optimized resume</p>
             <button class="btn" style="background:white;color:var(--primary);font-weight:700;width:100%;" onclick="goToGenerator()">
@@ -166,7 +166,7 @@
       <!-- EMPTY RESULTS STATE -->
       <div class="analyzer-empty" id="emptyResults">
         <div class="empty-state">
-          <div class="empty-state-icon" style="font-size:2.5rem;width:80px;height:80px;">🎯</div>
+          <div class="empty-state-icon" style="font-size:2.5rem;width:80px;height:80px;">ðŸŽ¯</div>
           <h3>Analyze a job to see results</h3>
           <p>Paste a job description on the left and click Analyze to see your match score, keywords, and AI recommendations</p>
         </div>
@@ -191,3 +191,4 @@
 <script src="analyzer.js"></script>
 </body>
 </html>
+

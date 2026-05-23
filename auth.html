@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResumePilot — Sign In</title>
+  <title>ResumePilot â€” Sign In</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -47,25 +47,16 @@
     }
 
     .auth-logo {
-      display: flex; align-items: center; gap: 12px;
       margin-bottom: 60px;
       position: relative; z-index: 1;
     }
 
-    .auth-logo-icon {
-      width: 44px; height: 44px;
-      background: linear-gradient(135deg, #7C3AED, #A855F7);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      box-shadow: 0 8px 24px rgba(124,58,237,0.4);
-    }
-
-    .auth-logo-text {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: white;
+    .auth-logo-img {
+      display: block;
+      width: 420px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
     }
 
     .auth-headline {
@@ -303,8 +294,7 @@
   <!-- LEFT PANEL -->
   <div class="auth-left">
     <div class="auth-logo">
-      <div class="auth-logo-icon">✈</div>
-      <span class="auth-logo-text">ResumePilot</span>
+      <img src="images/resumepilot logo2.png" alt="ResumePilot" class="auth-logo-img">
     </div>
 
     <h1 class="auth-headline">Build <span>ATS-Optimized</span> Resumes in Minutes</h1>
@@ -312,29 +302,29 @@
 
     <div class="auth-features">
       <div class="auth-feature">
-        <div class="feature-icon">🎯</div>
-        <div class="feature-text"><strong>ATS Score Analysis</strong> — Know exactly how your resume ranks</div>
+        <div class="feature-icon">ðŸŽ¯</div>
+        <div class="feature-text"><strong>ATS Score Analysis</strong> â€” Know exactly how your resume ranks</div>
       </div>
       <div class="auth-feature">
-        <div class="feature-icon">🤖</div>
-        <div class="feature-text"><strong>AI-Powered Generation</strong> — Tailored to every job description</div>
+        <div class="feature-icon">ðŸ¤–</div>
+        <div class="feature-text"><strong>AI-Powered Generation</strong> â€” Tailored to every job description</div>
       </div>
       <div class="auth-feature">
-        <div class="feature-icon">📊</div>
-        <div class="feature-text"><strong>Application Tracker</strong> — Manage your entire job pipeline</div>
+        <div class="feature-icon">ðŸ“Š</div>
+        <div class="feature-text"><strong>Application Tracker</strong> â€” Manage your entire job pipeline</div>
       </div>
       <div class="auth-feature">
-        <div class="feature-icon">🌍</div>
-        <div class="feature-text"><strong>Region-Specific Templates</strong> — Africa, US, Europe & more</div>
+        <div class="feature-icon">ðŸŒ</div>
+        <div class="feature-text"><strong>Region-Specific Templates</strong> â€” Africa, US, Europe & more</div>
       </div>
     </div>
 
     <div class="deco-cards">
       <div class="deco-card">
-        <span>✅</span> ATS Score: <strong>94%</strong>
+        <span>âœ…</span> ATS Score: <strong>94%</strong>
       </div>
       <div class="deco-card">
-        <span>🎉</span> Interview at Google!
+        <span>ðŸŽ‰</span> Interview at Google!
       </div>
     </div>
   </div>
@@ -344,7 +334,7 @@
     <div class="auth-form-wrap">
 
       <div style="text-align:center;margin-bottom:32px;">
-        <div style="font-size:2rem;">✈</div>
+        <div style="font-size:2rem;">âœˆ</div>
         <h1 class="auth-form-title" style="text-align:center;margin-top:4px;">ResumePilot</h1>
       </div>
 
@@ -397,7 +387,7 @@
       <!-- SIGN UP -->
       <div class="form-panel" id="signupPanel">
         <h2 class="auth-form-title">Create your account</h2>
-        <p class="auth-form-sub">Start building winning resumes today — free</p>
+        <p class="auth-form-sub">Start building winning resumes today â€” free</p>
 
         <div class="social-btns">
           <button class="social-btn" onclick="socialLogin('google')">
@@ -439,7 +429,7 @@
             </div>
           </div>
           <button type="submit" class="btn-auth" id="signupBtn">
-            <span class="btn-text">Create Account — It's Free</span>
+            <span class="btn-text">Create Account â€” It's Free</span>
             <div class="btn-loading"><div class="auth-spinner"></div> Creating account...</div>
           </button>
         </form>
@@ -459,7 +449,7 @@
         <h3 class="modal-title">Reset Password</h3>
         <p style="font-size:0.875rem;margin-top:4px;">Enter your email to receive a reset link</p>
       </div>
-      <button class="modal-close" data-modal-close="forgotModal">✕</button>
+      <button class="modal-close" data-modal-close="forgotModal">âœ•</button>
     </div>
     <div class="form-group">
       <label class="form-label">Email Address</label>
@@ -529,7 +519,7 @@
       });
       localStorage.setItem('rp_token', result.token);
       localStorage.setItem('rp_user', JSON.stringify(result.user));
-      App.toast('Account created! Welcome to ResumePilot 🎉', 'success');
+      App.toast('Account created! Welcome to ResumePilot ðŸŽ‰', 'success');
       setTimeout(() => window.location.href = 'dashboard.html', 1200);
     } catch {
       App.toast('Registration failed. Please try again.', 'error');
@@ -568,3 +558,4 @@
 </script>
 </body>
 </html>
+
