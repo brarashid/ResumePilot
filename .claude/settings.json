@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\Desktop\\\\ResumePilot\" -Recurse -Depth 2)"
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\USER\\\\Desktop\\\\ResumePilot\" -Recurse -Depth 2)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
