@@ -25,14 +25,14 @@ const Admin = (() => {
   ];
 
   const TEMPLATES = [
-    { id:1, name:'Executive Classic',  region:'Global',      uses:3420, rating:4.9, category:'Professional', icon:'👔' },
-    { id:2, name:'Modern Minimal',     region:'US/Canada',   uses:5102, rating:4.8, category:'Modern',       icon:'⚡' },
-    { id:3, name:'Tech Focused',       region:'US/Canada',   uses:4875, rating:4.7, category:'Technical',    icon:'💻' },
-    { id:4, name:'African Scholar',    region:'Africa',      uses:2890, rating:4.9, category:'Academic',     icon:'🎓' },
-    { id:5, name:'Creative Portfolio', region:'Europe',      uses:1950, rating:4.6, category:'Creative',     icon:'🎨' },
-    { id:6, name:'Gulf Professional',  region:'Middle East', uses:2100, rating:4.8, category:'Professional', icon:'🏢' },
-    { id:7, name:'Clean Impact',       region:'Global',      uses:3800, rating:4.7, category:'Modern',       icon:'✨' },
-    { id:8, name:'Leadership Bold',    region:'US/Canada',   uses:2300, rating:4.5, category:'Executive',    icon:'🚀' },
+    { id:1, name:'Executive Classic',  region:'Global',      uses:3420, rating:4.9, category:'Professional', icon:'' },
+    { id:2, name:'Modern Minimal',     region:'US/Canada',   uses:5102, rating:4.8, category:'Modern',       icon:'' },
+    { id:3, name:'Tech Focused',       region:'US/Canada',   uses:4875, rating:4.7, category:'Technical',    icon:'' },
+    { id:4, name:'African Scholar',    region:'Africa',      uses:2890, rating:4.9, category:'Academic',     icon:'' },
+    { id:5, name:'Creative Portfolio', region:'Europe',      uses:1950, rating:4.6, category:'Creative',     icon:'' },
+    { id:6, name:'Gulf Professional',  region:'Middle East', uses:2100, rating:4.8, category:'Professional', icon:'' },
+    { id:7, name:'Clean Impact',       region:'Global',      uses:3800, rating:4.7, category:'Modern',       icon:'' },
+    { id:8, name:'Leadership Bold',    region:'US/Canada',   uses:2300, rating:4.5, category:'Executive',    icon:'' },
   ];
 
   const DOWNLOADS = [

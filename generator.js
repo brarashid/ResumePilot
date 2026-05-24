@@ -5,14 +5,14 @@
 const Generator = (() => {
 
   const TEMPLATES = [
-    { id: 1, name: 'Executive Classic',   region: 'Global',       icon: '👔', color: '#7C3AED' },
-    { id: 2, name: 'Modern Minimal',      region: 'US/Canada',    icon: '⚡', color: '#3B82F6' },
-    { id: 3, name: 'Tech Focused',        region: 'US/Canada',    icon: '💻', color: '#0EA5E9' },
-    { id: 4, name: 'African Scholar',     region: 'Africa',       icon: '🎓', color: '#22C55E' },
-    { id: 5, name: 'Creative Portfolio',  region: 'Europe',       icon: '🎨', color: '#EC4899' },
-    { id: 6, name: 'Gulf Professional',   region: 'Middle East',  icon: '🏢', color: '#F59E0B' },
-    { id: 7, name: 'Clean Impact',        region: 'Global',       icon: '✨', color: '#6366F1' },
-    { id: 8, name: 'Leadership Bold',     region: 'US/Canada',    icon: '🚀', color: '#EF4444' },
+    { id: 1, name: 'Executive Classic',   region: 'Global',       icon: '', color: '#7C3AED' },
+    { id: 2, name: 'Modern Minimal',      region: 'US/Canada',    icon: '', color: '#3B82F6' },
+    { id: 3, name: 'Tech Focused',        region: 'US/Canada',    icon: '', color: '#0EA5E9' },
+    { id: 4, name: 'African Scholar',     region: 'Africa',       icon: '', color: '#22C55E' },
+    { id: 5, name: 'Creative Portfolio',  region: 'Europe',       icon: '', color: '#EC4899' },
+    { id: 6, name: 'Gulf Professional',   region: 'Middle East',  icon: '', color: '#F59E0B' },
+    { id: 7, name: 'Clean Impact',        region: 'Global',       icon: '', color: '#6366F1' },
+    { id: 8, name: 'Leadership Bold',     region: 'US/Canada',    icon: '', color: '#EF4444' },
   ];
 
   let _selectedTemplate = TEMPLATES[0];
@@ -95,7 +95,7 @@ const Generator = (() => {
     overlay.className = 'gen-loading-overlay';
     overlay.id = 'genLoadingOverlay';
     overlay.innerHTML = `
-      <div class="gen-loading-logo">✈</div>
+      <div class="gen-loading-logo"><i class="fas fa-paper-plane"></i></div>
       <div class="gen-loading-title">Generating Your Resume</div>
       <div class="gen-loading-sub">${tone} · ${length} · ${focus} · ${_selectedTemplate.name}</div>
       <div class="gen-steps" id="genStepList">

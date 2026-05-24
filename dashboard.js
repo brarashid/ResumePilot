@@ -33,7 +33,7 @@ const Dashboard = (() => {
     const h = new Date().getHours();
     const part = h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
     const el = document.getElementById('greetingText');
-    if (el) el.textContent = `Good ${part}, John 👋`;
+    if (el) el.textContent = `Good ${part}, John`;
   }
 
   function _animateStats() {

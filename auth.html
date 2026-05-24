@@ -506,7 +506,7 @@
       });
       localStorage.setItem('rp_token', result.token);
       localStorage.setItem('rp_user', JSON.stringify(result.user));
-      App.toast('Account created! Welcome to ResumePilot 🎉', 'success');
+      App.toast('Account created! Welcome to ResumePilot', 'success');
       setTimeout(() => window.location.href = 'dashboard.html', 1200);
     } catch {
       App.toast('Registration failed. Please try again.', 'error');

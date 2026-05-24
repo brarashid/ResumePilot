@@ -191,31 +191,31 @@ function _buildRecs(score, missing) {
   const recs = [];
   if (missing.length > 0) {
     recs.push({
-      icon: '🔑', bg: '#F5F3FF',
+      icon: '', bg: '#F5F3FF',
       title: 'Add missing keywords to your resume',
       desc: `Include: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? ` and ${missing.length - 5} more` : ''}.`,
     });
   }
   if (score < 75) {
     recs.push({
-      icon: '✍️', bg: '#DCFCE7',
+      icon: '', bg: '#DCFCE7',
       title: 'Rewrite your professional summary',
       desc: 'Tailor your summary to mirror the job description language and highlight your most relevant skills.',
     });
   }
   recs.push({
-    icon: '📊', bg: '#DBEAFE',
+    icon: '', bg: '#DBEAFE',
     title: 'Quantify your achievements',
     desc: 'Add metrics to bullet points (e.g., "Reduced load time by 40%", "Managed a team of 8 engineers").',
   });
   recs.push({
-    icon: '🎯', bg: '#FEF3C7',
+    icon: '', bg: '#FEF3C7',
     title: 'Match the job title exactly',
     desc: 'Use the exact job title from the posting in your resume header and summary section.',
   });
   if (score >= 80) {
     recs.push({
-      icon: '🚀', bg: '#DCFCE7',
+      icon: '', bg: '#DCFCE7',
       title: 'Strong match — apply now!',
       desc: 'Your profile is well-aligned. Generate a tailored resume and cover letter to maximize your chances.',
     });
