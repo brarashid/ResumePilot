@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — ResumePilot</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--primary:#7C3AED;--primary-dark:#5B21B6;--primary-light:#F5F3FF;--success:#22C55E;--text:#111827;--text-muted:#6B7280;--bg:#F9FAFB;--border:#E5E7EB;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;line-height:1.6;}
+    h1,h2,h3,h4{font-family:'Syne',sans-serif;}
+    img{max-width:100%;}
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(229,231,235,0.6);}
+    .nav-logo{display:flex;align-items:center;text-decoration:none;}
+    .nav-logo-img{height:62px;width:auto;display:block;mix-blend-mode:multiply;filter:drop-shadow(0 1px 4px rgba(124,58,237,0.18));transition:filter .2s,transform .2s;}
+    .nav-logo-img:hover{filter:drop-shadow(0 2px 8px rgba(124,58,237,0.32));transform:translateY(-1px);}
+    .nav-links{display:flex;align-items:center;gap:8px;}
+    .nav-link{padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:500;color:var(--text-muted);transition:all .2s;}
+    .nav-link:hover,.nav-link.active{color:var(--primary);background:var(--primary-light);}
+    .nav-cta{padding:9px 22px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,.3);}
+    .nav-cta:hover{background:var(--primary-dark);transform:translateY(-1px);}
+    .nav-mobile{display:none;background:none;border:none;font-size:1.25rem;color:var(--text);cursor:pointer;padding:8px;}
+
+    .page-hero{padding:140px 5% 88px;background:linear-gradient(160deg,#faf5ff 0%,#ede9fe 40%,#f0fdf4 100%);text-align:center;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,.12) 0%,transparent 70%);}
+    .page-label{position:relative;display:inline-flex;align-items:center;gap:7px;background:white;border:1px solid #e9d5ff;border-radius:30px;padding:6px 16px;font-size:.82rem;font-weight:600;color:var(--primary);margin-bottom:22px;box-shadow:0 2px 12px rgba(124,58,237,.1);}
+    .page-hero h1{position:relative;font-size:clamp(2.4rem,5vw,3.8rem);font-weight:800;line-height:1.12;margin-bottom:20px;color:#0F0A1E;}
+    .page-hero h1 span{background:linear-gradient(135deg,var(--primary),#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .page-hero p{position:relative;font-size:1.1rem;color:var(--text-muted);max-width:580px;margin:0 auto;line-height:1.75;}
+
+    .stats-bar{background:var(--primary);padding:56px 5%;}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:960px;margin:0 auto;text-align:center;}
+    .stat-num{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:white;}
+    .stat-label{font-size:.88rem;color:rgba(255,255,255,.75);margin-top:4px;}
+
+    .section{padding:88px 5%;}
+    .section-label{font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-bottom:10px;}
+    .section-title{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:800;color:#0F0A1E;margin-bottom:16px;line-height:1.2;}
+    .section-sub{font-size:1rem;color:var(--text-muted);line-height:1.7;}
+    .section-center{text-align:center;}
+    .section-center .section-sub{max-width:520px;margin:0 auto;}
+
+    .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;max-width:1100px;margin:0 auto;}
+    .story-img-wrap{position:relative;}
+    .story-img-box{border-radius:24px;overflow:hidden;border:1.5px solid rgba(124,58,237,.15);}
+    .story-img-box img{width:100%;height:100%;object-fit:cover;display:block;}
+    .story-img-heading{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:800;color:#0F0A1E;margin-bottom:16px;}
+    .story-float{position:absolute;bottom:-20px;right:-20px;background:white;border:1.5px solid var(--border);border-radius:16px;padding:16px 20px;box-shadow:0 8px 32px rgba(0,0,0,.1);display:flex;align-items:center;gap:14px;}
+    .story-float-icon{width:44px;height:44px;border-radius:12px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;}
+    .story-float strong{display:block;font-weight:700;font-size:.95rem;color:#0F0A1E;}
+    .story-float span{font-size:.78rem;color:var(--text-muted);}
+    .story-content p{color:var(--text-muted);line-height:1.85;margin-bottom:16px;font-size:.975rem;}
+    .story-content p:last-child{margin-bottom:0;}
+
+    .values-section{background:var(--bg);}
+    .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px;}
+    .value-card{background:white;border:1.5px solid var(--border);border-radius:18px;padding:34px 28px;transition:all .25s;}
+    .value-card:hover{border-color:rgba(124,58,237,.3);box-shadow:0 8px 32px rgba(124,58,237,.1);transform:translateY(-3px);}
+    .value-icon{width:52px;height:52px;border-radius:14px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:20px;}
+    .value-card h3{font-size:1.05rem;font-weight:700;color:#0F0A1E;margin-bottom:10px;}
+    .value-card p{font-size:.875rem;color:var(--text-muted);line-height:1.8;}
+
+.timeline-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;max-width:800px;margin:52px auto 0;position:relative;}
+    .timeline-grid::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--border);transform:translateX(-50%);}
+    .timeline-item{padding:0 40px 48px;}
+    .timeline-item:nth-child(odd){text-align:right;padding-right:52px;padding-left:0;}
+    .timeline-item:nth-child(even){padding-left:52px;padding-right:0;}
+    .timeline-dot{position:absolute;left:50%;transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid white;box-shadow:0 0 0 3px var(--primary-light);margin-top:4px;}
+    .timeline-year{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary);margin-bottom:6px;}
+    .timeline-item h3{font-size:1rem;font-weight:700;color:#0F0A1E;margin-bottom:6px;}
+    .timeline-item p{font-size:.875rem;color:var(--text-muted);line-height:1.7;}
+
+    .cta-wrap{background:linear-gradient(135deg,#7C3AED,#5B21B6);padding:88px 5%;text-align:center;}
+    .cta-wrap h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;color:white;margin-bottom:16px;}
+    .cta-wrap p{color:rgba(255,255,255,.8);font-size:1.05rem;margin-bottom:36px;}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border-radius:12px;background:white;color:var(--primary);font-weight:700;font-size:1rem;text-decoration:none;transition:all .2s;box-shadow:0 4px 20px rgba(0,0,0,.15);}
+    .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.2);}
+
+    footer{background:#0F0A1E;color:#C4B5FD;padding:64px 5% 32px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+    .footer-logo{margin-bottom:16px;}
+    .footer-logo-img{height:52px;width:auto;display:block;border-radius:10px;filter:brightness(1.1) drop-shadow(0 2px 8px rgba(124,58,237,.25));transition:filter .2s;}
+    .footer-logo-img:hover{filter:brightness(1.2) drop-shadow(0 4px 14px rgba(124,58,237,.4));}
+    .footer-desc{font-size:.875rem;color:#9CA3AF;line-height:1.65;max-width:260px;}
+    .footer-col h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:white;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;}
+    .footer-col a{display:block;font-size:.875rem;color:#9CA3AF;text-decoration:none;margin-bottom:10px;transition:color .15s;}
+    .footer-col a:hover{color:white;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .footer-copy{font-size:.82rem;color:#6B7280;}
+    .footer-socials{display:flex;gap:12px;}
+    .footer-social{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#9CA3AF;text-decoration:none;font-size:.9rem;transition:all .2s;}
+    .footer-social:hover{background:var(--primary);color:white;}
+
+    @media(max-width:768px){
+      .nav-links{display:none;}.nav-mobile{display:block;}
+      .story-grid{grid-template-columns:1fr;gap:48px;}
+      .story-float{right:0;}
+      .values-grid{grid-template-columns:1fr 1fr;}
+.stats-grid{grid-template-columns:1fr 1fr;}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+      .timeline-grid{grid-template-columns:1fr;}
+      .timeline-grid::before{display:none;}
+      .timeline-item,.timeline-item:nth-child(odd){text-align:left;padding:0 0 36px 24px;}
+    }
+    @media(max-width:480px){
+      .values-grid{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/resumepilot logo2.png" alt="ResumePilot" class="nav-logo-img">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#features" class="nav-link">Features</a>
+    <a href="index.html#pricing" class="nav-link">Pricing</a>
+    <a href="auth.html" class="nav-link">Sign In</a>
+    <a href="auth.html" class="nav-cta">Get Started Free</a>
+  </div>
+  <button class="nav-mobile" onclick="document.querySelector('.nav-links').style.cssText='display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:white;padding:20px;border-bottom:1px solid #e5e7eb;z-index:99;gap:4px;'"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+<h1>Built by job seekers,<br><span>for job seekers</span></h1>
+  <p>ResumePilot was born out of frustration. We know how hard it is to get past ATS filters and land interviews — so we built the tool we wished we had.</p>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div><div class="stat-num">50K+</div><div class="stat-label">Resumes Created</div></div>
+    <div><div class="stat-num">40+</div><div class="stat-label">Countries Served</div></div>
+    <div><div class="stat-num">92%</div><div class="stat-label">ATS Pass Rate</div></div>
+    <div><div class="stat-num">4.9★</div><div class="stat-label">Average Rating</div></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="section">
+  <div class="story-grid">
+    <div class="story-img-wrap">
+      <h3 class="story-img-heading">Our Mission</h3>
+      <div class="story-img-box"><img src="images/our mission.png" alt="Our Mission"></div>
+    </div>
+    <div class="story-content">
+<h2 class="section-title">Levelling the playing field for every job seeker</h2>
+      <p>In 2023, our founders were applying for jobs across three continents and kept hitting the same wall — strong candidates rejected by automated systems before any human ever read their resumes.</p>
+      <p>They realised that the rules of job applications had fundamentally changed, but the tools available to candidates hadn't kept up. ATS systems gate-keep over 75% of corporate applications, yet most candidates have no idea how to optimise for them.</p>
+      <p>ResumePilot was built to close that gap — using AI to analyse job descriptions, extract key requirements, and rewrite resumes to pass ATS filters in under 2 minutes.</p>
+      <p>Today, we help job seekers across 40+ countries compete on equal footing, regardless of where they went to school or who they know.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section values-section">
+  <div class="section-center">
+    <div class="section-label">What We Stand For</div>
+    <h2 class="section-title">Our values</h2>
+    <p class="section-sub">Every product decision we make is guided by these six principles.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
+      <h3>Equal Access</h3>
+      <p>Career opportunities shouldn't depend on having the right connections or the budget for a professional resume writer. Great tools should be available to everyone, everywhere.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="fas fa-bolt"></i></div>
+      <h3>Speed & Simplicity</h3>
+      <p>Your time is valuable. We obsess over removing unnecessary steps so you can go from job description to tailored resume in minutes, not hours.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+      <h3>Privacy First</h3>
+      <p>Your career data is sensitive. We never sell it, never share it without explicit consent, and give you full control to export or delete it at any time.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="fas fa-globe"></i></div>
+      <h3>Global by Default</h3>
+      <p>Resume standards vary dramatically by region. We build for the world — not just Silicon Valley — with templates optimised for every major job market.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="fas fa-microscope"></i></div>
+      <h3>Evidence-Based</h3>
+      <p>Every feature is grounded in research. We study how ATS systems actually work and what hiring managers actually look for, and update our models accordingly.</p>
+    </div>
+    <div class="value-card">
+      <div class="value-icon"><i class="fas fa-handshake"></i></div>
+      <h3>Honest Pricing</h3>
+      <p>No dark patterns, no surprise charges. Our free tier is genuinely useful, and our Pro plan is priced to be accessible to job seekers at any income level.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="section" style="background:var(--bg);">
+  <div class="section-center">
+    <div class="section-label">Our Journey</div>
+    <h2 class="section-title">How we got here</h2>
+    <p class="section-sub">From a frustrating job search to a platform trusted by 50,000+ people.</p>
+  </div>
+  <div class="timeline-grid" style="position:relative;">
+    <div class="timeline-item" style="position:relative;">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2023 — Q1</div>
+      <h3>The Problem</h3>
+      <p>Founders experience firsthand how opaque ATS systems reject strong candidates. The idea for ResumePilot is born.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2023 — Q3</div>
+      <h3>First Beta</h3>
+      <p>500 beta testers join. Early feedback shapes the core AI engine and the first set of ATS optimisation rules.</p>
+    </div>
+    <div class="timeline-item" style="position:relative;">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2024 — Q1</div>
+      <h3>Public Launch</h3>
+      <p>ResumePilot launches publicly. 5,000 users in the first month. Cover letter generation goes live.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2024 — Q4</div>
+      <h3>Global Expansion</h3>
+      <p>Regional templates for Europe, Africa, and the Gulf region launch. Users from 40+ countries are now on the platform.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-wrap">
+  <h2>Ready to land your next role?</h2>
+  <p>Join 50,000+ professionals who got hired with ResumePilot.</p>
+  <a href="auth.html" class="btn-white"><i class="fas fa-rocket"></i> Build My Resume — Free</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><img src="images/resumepilot logo1.png" alt="ResumePilot" class="footer-logo-img"></div>
+      <p class="footer-desc">AI-powered resume builder trusted by job seekers across 40+ countries. Built to help you get hired, faster.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analyzer.html">Job Analyser</a>
+      <a href="generator.html">Resume Generator</a>
+      <a href="cover-letter.html">Cover Letters</a>
+      <a href="tracker.html">App Tracker</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="auth.html">Sign In</a>
+      <a href="auth.html">Create Account</a>
+      <a href="profile.html">My Profile</a>
+      <a href="settings.html">Settings</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 ResumePilot. All rights reserved.</div>
+    <div class="footer-socials">
+      <a href="#" class="footer-social"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

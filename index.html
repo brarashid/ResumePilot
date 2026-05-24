@@ -210,7 +210,11 @@
       .templates-grid { grid-template-columns: repeat(2, 1fr); }
       .logos-grid { gap: 20px 28px; }
       .logo-item img { height: 22px; }
-      .faq-wrap { margin-top: 32px; }
+      .faq-controls { margin-top: 24px; }
+      .faq-wrap { margin-top: 16px; }
+      .faq-a { padding-left: 20px; }
+      .faq-cats { gap: 6px; }
+      .faq-cat { font-size: 0.78rem; padding: 6px 12px; }
       .pain-bar-inner { flex-direction: column; gap: 12px; }
     }
     @media (max-width: 480px) {
@@ -310,15 +314,38 @@
     .testimonial-time { font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; }
 
     /* ── FAQ ── */
-    .faq-section { padding: 96px 5%; background: var(--bg); }
-    .faq-wrap { max-width: 760px; margin: 48px auto 0; }
-    .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; cursor: pointer; font-weight: 700; font-size: 0.975rem; color: #0F0A1E; gap: 16px; user-select: none; }
-    .faq-q:hover { color: var(--primary); }
-    .faq-icon { width: 26px; height: 26px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; transition: transform 0.25s, background 0.25s; }
-    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--primary); color: white; }
-    .faq-a { display: none; padding: 0 0 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
-    .faq-item.open .faq-a { display: block; }
+    .faq-section { padding: 96px 5%; background: linear-gradient(135deg, #f8f6ff 0%, #ffffff 50%, #f0f4ff 100%); position: relative; overflow: hidden; }
+    .faq-section::before { content: ''; position: absolute; top: -80px; right: -80px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(109,40,217,0.07) 0%, transparent 70%); pointer-events: none; }
+    .faq-section::after { content: ''; position: absolute; bottom: -60px; left: -60px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(109,40,217,0.05) 0%, transparent 70%); pointer-events: none; }
+
+    .faq-controls { max-width: 760px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 14px; }
+    .faq-search-wrap { position: relative; }
+    .faq-search-wrap i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
+    .faq-search { width: 100%; padding: 13px 16px 13px 44px; border: 2px solid var(--border); border-radius: 12px; font-size: 0.9rem; font-family: inherit; color: var(--text); background: white; transition: border-color 0.2s, box-shadow 0.2s; box-sizing: border-box; outline: none; }
+    .faq-search:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(109,40,217,0.1); }
+    .faq-search::placeholder { color: var(--text-muted); }
+    .faq-cats { display: flex; gap: 8px; flex-wrap: wrap; }
+    .faq-cat { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: white; font-size: 0.82rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+    .faq-cat:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .faq-cat.active { background: var(--primary); border-color: var(--primary); color: white; }
+
+    .faq-wrap { max-width: 760px; margin: 20px auto 0; }
+    .faq-item { background: white; border-radius: 14px; margin-bottom: 10px; border: 1.5px solid var(--border); overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s; }
+    .faq-item:hover { border-color: rgba(109,40,217,0.3); box-shadow: 0 4px 20px rgba(109,40,217,0.08); }
+    .faq-item.open { border-color: var(--primary); box-shadow: 0 4px 24px rgba(109,40,217,0.13); }
+    .faq-item.hidden { display: none; }
+    .faq-q { display: flex; align-items: center; padding: 18px 20px; cursor: pointer; gap: 14px; -webkit-user-select: none; user-select: none; }
+    .faq-cat-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; transition: background 0.25s, color 0.25s; }
+    .faq-item.open .faq-cat-icon { background: var(--primary); color: white; }
+    .faq-q-text { flex: 1; font-weight: 700; font-size: 0.95rem; color: #0F0A1E; transition: color 0.2s; }
+    .faq-item.open .faq-q-text { color: var(--primary); }
+    .faq-chevron { width: 28px; height: 28px; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; flex-shrink: 0; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.25s, color 0.25s; }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); background: var(--primary); color: white; }
+    .faq-a-wrap { max-height: 0; overflow: hidden; transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1); }
+    .faq-item.open .faq-a-wrap { max-height: 500px; }
+    .faq-a { padding: 0 20px 18px 70px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border); padding-top: 14px; }
+    .faq-empty { text-align: center; padding: 48px 0; color: var(--text-muted); display: none; }
+    .faq-empty i { font-size: 2rem; color: var(--border); display: block; margin-bottom: 12px; }
   </style>
 </head>
 <body>
@@ -784,78 +811,125 @@
     <h2 class="section-title">Common questions, answered</h2>
     <p class="section-sub">Everything you need to know before you start.</p>
   </div>
+
+  <div class="faq-controls">
+    <div class="faq-search-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" class="faq-search" id="faqSearch" placeholder="Search questions…" oninput="filterFaq()">
+    </div>
+    <div class="faq-cats">
+      <button class="faq-cat active" data-cat="all" onclick="setCat(this)"><i class="fas fa-th-large"></i> All</button>
+      <button class="faq-cat" data-cat="general" onclick="setCat(this)"><i class="fas fa-info-circle"></i> General</button>
+      <button class="faq-cat" data-cat="pricing" onclick="setCat(this)"><i class="fas fa-tag"></i> Pricing</button>
+      <button class="faq-cat" data-cat="technical" onclick="setCat(this)"><i class="fas fa-cog"></i> Technical</button>
+      <button class="faq-cat" data-cat="privacy" onclick="setCat(this)"><i class="fas fa-shield-alt"></i> Privacy</button>
+    </div>
+  </div>
+
   <div class="faq-wrap">
 
-    <div class="faq-item open">
+    <div class="faq-item open" data-cat="general">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>What is ResumePilot?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-rocket"></i></span>
+        <span class="faq-q-text">What is ResumePilot?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">ResumePilot is an AI-powered resume builder that analyses job descriptions, tailors your resume for ATS systems, generates cover letters, and tracks your applications — all in one platform.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">ResumePilot is an AI-powered resume builder that analyses job descriptions, tailors your resume for ATS systems, generates cover letters, and tracks your applications — all in one platform.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="technical">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>What does ATS-friendly mean?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-filter"></i></span>
+        <span class="faq-q-text">What does ATS-friendly mean?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">ATS stands for Applicant Tracking System — software that most companies use to automatically filter resumes before a human ever reads them. An ATS-friendly resume uses the right keywords, structure, and formatting to pass these filters. ResumePilot scores your resume from 0–100 and shows you exactly what to fix.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">ATS stands for Applicant Tracking System — software that most companies use to automatically filter resumes before a human ever reads them. An ATS-friendly resume uses the right keywords, structure, and formatting to pass these filters. ResumePilot scores your resume from 0–100 and shows you exactly what to fix.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="general">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>How does the AI work?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-brain"></i></span>
+        <span class="faq-q-text">How does the AI work?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">You paste a job description, and our AI extracts the key requirements, keywords, and skills the employer is looking for. It then cross-references your profile and rewrites your resume to perfectly match the role — without you having to do it manually for every application.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">You paste a job description, and our AI extracts the key requirements, keywords, and skills the employer is looking for. It then cross-references your profile and rewrites your resume to perfectly match the role — without you having to do it manually for every application.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="pricing">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Is ResumePilot free?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-gift"></i></span>
+        <span class="faq-q-text">Is ResumePilot free?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">Yes. You can create up to 3 AI-generated resumes, run ATS checks, and download as PDF or DOCX completely free. Upgrade to Pro ($9.99/mo) for unlimited resumes, cover letters, application tracking, and all 9 regional templates.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">Yes. You can create up to 3 AI-generated resumes, run ATS checks, and download as PDF or DOCX completely free. Upgrade to Pro ($9.99/mo) for unlimited resumes, cover letters, application tracking, and all 9 regional templates.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="technical">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>What file formats can I download?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-file-download"></i></span>
+        <span class="faq-q-text">What file formats can I download?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">You can download your resume as a PDF or a DOCX (Word) file. Both formats are ATS-compatible and accepted by all major job boards and applicant tracking systems.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">You can download your resume as a PDF or a DOCX (Word) file. Both formats are ATS-compatible and accepted by all major job boards and applicant tracking systems.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="general">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>How long does it take to build a resume?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-clock"></i></span>
+        <span class="faq-q-text">How long does it take to build a resume?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">Most users complete their first resume in under 10 minutes. Once your profile is set up, generating a tailored resume for a new job takes less than 2 minutes — just paste the job description and click Generate.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">Most users complete their first resume in under 10 minutes. Once your profile is set up, generating a tailored resume for a new job takes less than 2 minutes — just paste the job description and click Generate.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="technical">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Which regions and countries are supported?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-globe"></i></span>
+        <span class="faq-q-text">Which regions and countries are supported?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">ResumePilot has templates and formatting optimised for US/Canada, Europe (including Europass-compatible formats), Africa, and the Gulf/MENA region. Resume standards vary significantly between regions, and we account for all of them.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">ResumePilot has templates and formatting optimised for US/Canada, Europe (including Europass-compatible formats), Africa, and the Gulf/MENA region. Resume standards vary significantly between regions, and we account for all of them.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="privacy">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Is my data secure?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-lock"></i></span>
+        <span class="faq-q-text">Is my data secure?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">Yes. Your profile and resume data are stored securely and never shared with third parties or employers without your explicit action. You can export or delete your data at any time from your account settings.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">Yes. Your profile and resume data are stored securely and never shared with third parties or employers without your explicit action. You can export or delete your data at any time from your account settings.</div>
+      </div>
     </div>
 
-    <div class="faq-item">
+    <div class="faq-item" data-cat="general">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>What's the difference between a resume and a CV?</span>
-        <span class="faq-icon"><i class="fas fa-plus"></i></span>
+        <span class="faq-cat-icon"><i class="fas fa-file-alt"></i></span>
+        <span class="faq-q-text">What's the difference between a resume and a CV?</span>
+        <span class="faq-chevron"><i class="fas fa-chevron-down"></i></span>
       </div>
-      <div class="faq-a">A resume is a concise 1–2 page document focused on work experience and skills, common in the US and Canada. A CV (curriculum vitae) is a longer, more detailed document that includes academic credentials, publications, and more — standard in Europe, Africa, and parts of the Middle East. ResumePilot supports both formats based on your target region.</div>
+      <div class="faq-a-wrap">
+        <div class="faq-a">A resume is a concise 1–2 page document focused on work experience and skills, common in the US and Canada. A CV (curriculum vitae) is a longer, more detailed document that includes academic credentials, publications, and more — standard in Europe, Africa, and parts of the Middle East. ResumePilot supports both formats based on your target region.</div>
+      </div>
+    </div>
+
+    <div class="faq-empty" id="faqEmpty">
+      <i class="fas fa-search"></i>
+      No questions match your search. Try a different term or category.
     </div>
 
   </div>
@@ -897,11 +971,9 @@
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a href="#">About Us</a>
-      <a href="#">Blog</a>
-      <a href="#">Careers</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
+      <a href="about.html">About Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -926,10 +998,39 @@
     observer.observe(el);
   });
 
-  // FAQ toggle
+  // FAQ
+  let faqActiveCat = 'all';
+
   function toggleFaq(el) {
     const item = el.parentElement;
-    item.classList.toggle('open');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  function setCat(btn) {
+    document.querySelectorAll('.faq-cat').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    faqActiveCat = btn.dataset.cat;
+    filterFaq();
+  }
+
+  function filterFaq() {
+    const query = (document.getElementById('faqSearch').value || '').toLowerCase().trim();
+    let visible = 0;
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const catMatch = faqActiveCat === 'all' || item.dataset.cat === faqActiveCat;
+      const textMatch = !query || item.textContent.toLowerCase().includes(query);
+      if (catMatch && textMatch) {
+        item.classList.remove('hidden');
+        visible++;
+      } else {
+        item.classList.add('hidden');
+        item.classList.remove('open');
+      }
+    });
+    const empty = document.getElementById('faqEmpty');
+    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
   }
 
   // Animated counter for hero stats

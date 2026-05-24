@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Remove-Item \"c:\\\\Users\\\\USER\\\\Desktop\\\\ResumePilot\\\\blog.html\", \"c:\\\\Users\\\\USER\\\\Desktop\\\\ResumePilot\\\\careers.html\")"
+    ]
+  }
+}

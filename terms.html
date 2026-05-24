@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — ResumePilot</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--primary:#7C3AED;--primary-dark:#5B21B6;--primary-light:#F5F3FF;--text:#111827;--text-muted:#6B7280;--bg:#F9FAFB;--border:#E5E7EB;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;line-height:1.6;}
+    h1,h2,h3,h4{font-family:'Syne',sans-serif;}
+    img{max-width:100%;}
+    a{color:var(--primary);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(229,231,235,0.6);}
+    .nav-logo{display:flex;align-items:center;text-decoration:none;}
+    .nav-logo-img{height:62px;width:auto;display:block;mix-blend-mode:multiply;filter:drop-shadow(0 1px 4px rgba(124,58,237,0.18));transition:filter .2s,transform .2s;}
+    .nav-logo-img:hover{filter:drop-shadow(0 2px 8px rgba(124,58,237,0.32));transform:translateY(-1px);}
+    .nav-links{display:flex;align-items:center;gap:8px;}
+    .nav-link{padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:500;color:var(--text-muted);transition:all .2s;}
+    .nav-link:hover{color:var(--primary);background:var(--primary-light);}
+    .nav-cta{padding:9px 22px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,.3);}
+    .nav-cta:hover{background:var(--primary-dark);transform:translateY(-1px);}
+    .nav-mobile{display:none;background:none;border:none;font-size:1.25rem;color:var(--text);cursor:pointer;padding:8px;}
+
+    .legal-hero{padding:120px 5% 56px;background:linear-gradient(160deg,#faf5ff 0%,#ede9fe 50%,#f0fdf4 100%);position:relative;overflow:hidden;}
+    .legal-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,.1) 0%,transparent 70%);}
+    .legal-hero-inner{position:relative;max-width:800px;}
+    .page-label{display:inline-flex;align-items:center;gap:7px;background:white;border:1px solid #e9d5ff;border-radius:30px;padding:6px 16px;font-size:.82rem;font-weight:600;color:var(--primary);margin-bottom:20px;box-shadow:0 2px 12px rgba(124,58,237,.1);}
+    .legal-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#0F0A1E;margin-bottom:14px;line-height:1.15;}
+    .legal-hero .meta{font-size:.9rem;color:var(--text-muted);}
+
+    .legal-layout{display:grid;grid-template-columns:240px 1fr;gap:56px;max-width:1100px;margin:0 auto;padding:64px 5% 96px;}
+
+    .legal-sidebar{position:sticky;top:88px;height:fit-content;}
+    .sidebar-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:14px;}
+    .sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+    .sidebar-link{display:block;padding:8px 12px;border-radius:8px;font-size:.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all .2s;border-left:2px solid transparent;}
+    .sidebar-link:hover{color:var(--primary);background:var(--primary-light);border-color:var(--primary);}
+    .sidebar-link.active{color:var(--primary);background:var(--primary-light);border-color:var(--primary);font-weight:600;}
+
+    .legal-section{margin-bottom:52px;scroll-margin-top:96px;}
+    .legal-section:last-child{margin-bottom:0;}
+    .legal-section h2{font-size:1.4rem;font-weight:800;color:#0F0A1E;margin-bottom:16px;padding-bottom:12px;border-bottom:1.5px solid var(--border);}
+    .legal-section p{color:var(--text-muted);line-height:1.85;margin-bottom:14px;font-size:.95rem;}
+    .legal-section p:last-child{margin-bottom:0;}
+    .legal-section ul{padding-left:20px;margin:12px 0 14px;color:var(--text-muted);}
+    .legal-section ul li{margin-bottom:8px;line-height:1.75;font-size:.95rem;}
+    .legal-section h3{font-size:1.05rem;font-weight:700;color:#0F0A1E;margin:24px 0 10px;}
+    .highlight-box{background:var(--primary-light);border:1.5px solid rgba(124,58,237,.2);border-radius:12px;padding:20px 24px;margin:20px 0;}
+    .highlight-box p{color:var(--primary-dark);font-size:.9rem;margin:0;}
+    .highlight-box i{margin-right:8px;}
+    .warn-box{background:#FEF3C7;border:1.5px solid #FDE68A;border-radius:12px;padding:20px 24px;margin:20px 0;}
+    .warn-box p{color:#92400E;font-size:.9rem;margin:0;}
+    .warn-box i{margin-right:8px;}
+
+    footer{background:#0F0A1E;color:#C4B5FD;padding:64px 5% 32px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+    .footer-logo{margin-bottom:16px;}
+    .footer-logo-img{height:52px;width:auto;display:block;border-radius:10px;filter:brightness(1.1) drop-shadow(0 2px 8px rgba(124,58,237,.25));}
+    .footer-desc{font-size:.875rem;color:#9CA3AF;line-height:1.65;max-width:260px;}
+    .footer-col h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:white;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;}
+    .footer-col a{display:block;font-size:.875rem;color:#9CA3AF;text-decoration:none;margin-bottom:10px;transition:color .15s;}
+    .footer-col a:hover{color:white;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .footer-copy{font-size:.82rem;color:#6B7280;}
+    .footer-socials{display:flex;gap:12px;}
+    .footer-social{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#9CA3AF;text-decoration:none;font-size:.9rem;transition:all .2s;}
+    .footer-social:hover{background:var(--primary);color:white;}
+
+    @media(max-width:900px){
+      .legal-layout{grid-template-columns:1fr;}
+      .legal-sidebar{position:relative;top:0;}
+      .sidebar-nav{flex-direction:row;flex-wrap:wrap;gap:6px;}
+      .sidebar-link{border-left:none;border-bottom:2px solid transparent;}
+      .sidebar-link.active{border-left:none;border-bottom-color:var(--primary);}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none;}.nav-mobile{display:block;}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/resumepilot logo2.png" alt="ResumePilot" class="nav-logo-img">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#features" class="nav-link">Features</a>
+    <a href="index.html#pricing" class="nav-link">Pricing</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="auth.html" class="nav-link">Sign In</a>
+    <a href="auth.html" class="nav-cta">Get Started Free</a>
+  </div>
+  <button class="nav-mobile" onclick="document.querySelector('.nav-links').style.cssText='display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:white;padding:20px;border-bottom:1px solid #e5e7eb;z-index:99;gap:4px;'"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="legal-hero">
+  <div class="legal-hero-inner">
+    <div class="page-label"><i class="fas fa-file-contract"></i> Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="meta">Last updated: <strong>1 January 2025</strong> &nbsp;·&nbsp; Effective: <strong>1 January 2025</strong></p>
+  </div>
+</section>
+
+<!-- LAYOUT -->
+<div class="legal-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="legal-sidebar">
+    <div class="sidebar-title">Contents</div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <a href="#acceptance" class="sidebar-link active">1. Acceptance</a>
+      <a href="#service" class="sidebar-link">2. The Service</a>
+      <a href="#accounts" class="sidebar-link">3. Accounts</a>
+      <a href="#acceptable-use" class="sidebar-link">4. Acceptable Use</a>
+      <a href="#ip" class="sidebar-link">5. Intellectual Property</a>
+      <a href="#plans" class="sidebar-link">6. Free & Paid Plans</a>
+      <a href="#payment" class="sidebar-link">7. Payment & Billing</a>
+      <a href="#disclaimers" class="sidebar-link">8. Disclaimers</a>
+      <a href="#liability" class="sidebar-link">9. Liability</a>
+      <a href="#indemnification" class="sidebar-link">10. Indemnification</a>
+      <a href="#termination" class="sidebar-link">11. Termination</a>
+      <a href="#governing-law" class="sidebar-link">12. Governing Law</a>
+      <a href="#changes" class="sidebar-link">13. Changes</a>
+      <a href="#contact" class="sidebar-link">14. Contact</a>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="legal-content">
+
+    <div class="highlight-box">
+      <p><i class="fas fa-info-circle"></i><strong>Plain-language summary:</strong> These terms are a contract between you and ResumePilot. By using the Service, you agree to these rules. Please read Section 8 (Disclaimers) and Section 9 (Liability Limitation) carefully — they affect your legal rights.</p>
+    </div>
+
+    <div class="legal-section" id="acceptance">
+      <h2>1. Acceptance of Terms</h2>
+      <p>These Terms of Service ("Terms") govern your access to and use of ResumePilot ("Service"), operated by ResumePilot ("Company", "we", "us", or "our"). By creating an account or using any part of the Service, you agree to be bound by these Terms.</p>
+      <p>If you are using the Service on behalf of an organisation, you represent that you have authority to bind that organisation to these Terms.</p>
+      <p>If you do not agree to these Terms, do not use the Service.</p>
+    </div>
+
+    <div class="legal-section" id="service">
+      <h2>2. Description of Service</h2>
+      <p>ResumePilot is an AI-powered platform that enables users to:</p>
+      <ul>
+        <li>Build and customise professional resumes and CVs</li>
+        <li>Analyse job descriptions and receive tailored resume recommendations</li>
+        <li>Check ATS compatibility scores and receive optimisation suggestions</li>
+        <li>Generate cover letters using AI assistance</li>
+        <li>Track job applications</li>
+        <li>Download resumes in PDF and DOCX formats</li>
+      </ul>
+      <p>We reserve the right to modify, suspend, or discontinue any aspect of the Service at any time with reasonable notice.</p>
+    </div>
+
+    <div class="legal-section" id="accounts">
+      <h2>3. User Accounts</h2>
+      <p>You must create an account to access most features of the Service. You agree to:</p>
+      <ul>
+        <li>Provide accurate, current, and complete information during registration</li>
+        <li>Maintain the security of your password and notify us immediately of any unauthorised access</li>
+        <li>Not share your account credentials with others</li>
+        <li>Be responsible for all activity that occurs under your account</li>
+      </ul>
+      <p>You must be at least 16 years old to create an account. We reserve the right to suspend or terminate accounts that violate these Terms.</p>
+    </div>
+
+    <div class="legal-section" id="acceptable-use">
+      <h2>4. Acceptable Use</h2>
+      <p>You agree not to use the Service to:</p>
+      <ul>
+        <li>Violate any applicable laws or regulations</li>
+        <li>Create false, misleading, or fraudulent resumes or profiles</li>
+        <li>Impersonate any person or entity</li>
+        <li>Upload or transmit viruses, malware, or other harmful code</li>
+        <li>Attempt to gain unauthorised access to any part of the Service or its infrastructure</li>
+        <li>Scrape, crawl, or systematically extract content from the Service</li>
+        <li>Use the Service for any commercial purpose other than your own personal job search</li>
+        <li>Reverse engineer, decompile, or attempt to extract the source code of the Service</li>
+      </ul>
+      <p>Violation of these rules may result in immediate account suspension or termination.</p>
+    </div>
+
+    <div class="legal-section" id="ip">
+      <h2>5. Content and Intellectual Property</h2>
+      <h3>Your content</h3>
+      <p>You retain full ownership of the resume content, work history, and other personal data you input into the Service. By using the Service, you grant us a limited, non-exclusive licence to process and store your content solely to provide the Service to you.</p>
+      <h3>Our content</h3>
+      <p>The ResumePilot platform, including its design, code, AI models, templates, and brand assets, is owned by ResumePilot and protected by copyright, trademark, and other intellectual property laws. You may not copy, reproduce, or distribute our proprietary content without express written permission.</p>
+      <h3>AI-generated content</h3>
+      <p>Resume text and cover letters generated by our AI tools are provided for your personal use. You are responsible for reviewing and editing AI-generated content before submitting it to employers, and for ensuring it accurately represents your qualifications.</p>
+    </div>
+
+    <div class="legal-section" id="plans">
+      <h2>6. Free and Paid Plans</h2>
+      <h3>Free plan</h3>
+      <p>The Free plan allows you to create up to 3 AI-generated resumes, run ATS checks, and download in PDF or DOCX format at no cost. We reserve the right to change the limits of the Free plan with 30 days' notice.</p>
+      <h3>Pro plan</h3>
+      <p>The Pro plan provides unlimited resumes, cover letter generation, application tracking, and access to all regional templates. Pro features are subject to the billing terms in Section 7.</p>
+    </div>
+
+    <div class="legal-section" id="payment">
+      <h2>7. Payment and Billing</h2>
+      <p>Pro subscriptions are billed monthly or annually, in advance. By subscribing, you authorise us to charge your payment method on a recurring basis until you cancel.</p>
+      <ul>
+        <li><strong>Cancellation:</strong> You may cancel your Pro subscription at any time from Settings. Your access continues until the end of the current billing period. We do not provide prorated refunds for partial months.</li>
+        <li><strong>Refunds:</strong> We offer a 7-day money-back guarantee for new Pro subscribers. Contact <a href="mailto:support@resumepilot.com">support@resumepilot.com</a> within 7 days of your first charge to request a refund.</li>
+        <li><strong>Price changes:</strong> We will notify you at least 30 days before any price increase. Continued use after the effective date constitutes acceptance.</li>
+        <li><strong>Failed payments:</strong> If a payment fails, we will retry and notify you. After 7 days of non-payment, your account may be downgraded to the Free plan.</li>
+      </ul>
+      <p>All payments are processed securely by Stripe. We do not store your payment card details.</p>
+    </div>
+
+    <div class="legal-section" id="disclaimers">
+      <h2>8. Disclaimers</h2>
+      <div class="warn-box">
+        <p><i class="fas fa-exclamation-triangle"></i><strong>Important:</strong> Please read this section carefully. It limits our legal obligations to you.</p>
+      </div>
+      <p>THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES INCLUDING, BUT NOT LIMITED TO:</p>
+      <ul>
+        <li>Warranties of merchantability, fitness for a particular purpose, or non-infringement</li>
+        <li>That the Service will be uninterrupted, error-free, or secure</li>
+        <li>That AI-generated content will be accurate, complete, or suitable for any particular purpose</li>
+        <li>That using the Service will result in employment or interviews</li>
+      </ul>
+      <p>We do not guarantee that resumes created with ResumePilot will pass any specific employer's ATS system, as these systems vary widely and change frequently.</p>
+    </div>
+
+    <div class="legal-section" id="liability">
+      <h2>9. Limitation of Liability</h2>
+      <p>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, RESUMEPILOT AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AFFILIATES SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING LOSS OF PROFITS, DATA, OR GOODWILL, ARISING FROM YOUR USE OF OR INABILITY TO USE THE SERVICE.</p>
+      <p>OUR TOTAL LIABILITY TO YOU FOR ANY CLAIMS ARISING UNDER THESE TERMS SHALL NOT EXCEED THE GREATER OF (A) THE AMOUNT YOU PAID US IN THE 12 MONTHS PRECEDING THE CLAIM, OR (B) USD $50.</p>
+      <p>Some jurisdictions do not allow limitations on liability — in such jurisdictions, our liability is limited to the maximum extent permitted by law.</p>
+    </div>
+
+    <div class="legal-section" id="indemnification">
+      <h2>10. Indemnification</h2>
+      <p>You agree to indemnify, defend, and hold harmless ResumePilot and its officers, directors, employees, and agents from any claims, damages, losses, or expenses (including reasonable legal fees) arising from:</p>
+      <ul>
+        <li>Your use of the Service in violation of these Terms</li>
+        <li>Your violation of any applicable law or regulation</li>
+        <li>Content you submit to the Service that infringes third-party rights</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="termination">
+      <h2>11. Termination</h2>
+      <p>Either party may terminate these Terms at any time. You may close your account from Settings at any time. We may suspend or terminate your account immediately if:</p>
+      <ul>
+        <li>You breach any provision of these Terms</li>
+        <li>We are required to do so by law</li>
+        <li>We determine that your account poses a risk to the Service or other users</li>
+      </ul>
+      <p>Upon termination, your right to use the Service ceases immediately. Provisions that by their nature should survive termination (including Sections 5, 8, 9, 10, and 12) will remain in effect.</p>
+    </div>
+
+    <div class="legal-section" id="governing-law">
+      <h2>12. Governing Law and Disputes</h2>
+      <p>These Terms are governed by the laws of Nigeria, without regard to conflict-of-law principles. Any disputes arising from these Terms or your use of the Service shall be resolved through binding arbitration, except that either party may seek injunctive relief in a court of competent jurisdiction.</p>
+      <p>If you are a consumer in the EU/EEA, you may also be entitled to bring claims before the courts of your country of residence under applicable consumer protection laws.</p>
+    </div>
+
+    <div class="legal-section" id="changes">
+      <h2>13. Changes to These Terms</h2>
+      <p>We may update these Terms from time to time. When we make material changes, we will notify you by email and via a notice in the Service at least 14 days before the changes take effect.</p>
+      <p>Your continued use of the Service after the effective date of any changes constitutes your acceptance of the updated Terms. If you do not agree to the new Terms, you must stop using the Service and close your account.</p>
+    </div>
+
+    <div class="legal-section" id="contact">
+      <h2>14. Contact Us</h2>
+      <p>If you have questions about these Terms, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:legal@resumepilot.com">legal@resumepilot.com</a></li>
+        <li><strong>Support:</strong> <a href="mailto:support@resumepilot.com">support@resumepilot.com</a></li>
+        <li><strong>Address:</strong> ResumePilot, Lagos, Nigeria</li>
+      </ul>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><img src="images/resumepilot logo1.png" alt="ResumePilot" class="footer-logo-img"></div>
+      <p class="footer-desc">AI-powered resume builder trusted by job seekers across 40+ countries. Built to help you get hired, faster.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analyzer.html">Job Analyser</a>
+      <a href="generator.html">Resume Generator</a>
+      <a href="cover-letter.html">Cover Letters</a>
+      <a href="tracker.html">App Tracker</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="auth.html">Sign In</a>
+      <a href="auth.html">Create Account</a>
+      <a href="profile.html">My Profile</a>
+      <a href="settings.html">Settings</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 ResumePilot. All rights reserved.</div>
+    <div class="footer-socials">
+      <a href="#" class="footer-social"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.legal-section');
+  const links = document.querySelectorAll('.sidebar-link');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector('.sidebar-link[href="#' + e.target.id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>

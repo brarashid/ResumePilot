@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — ResumePilot</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{--primary:#7C3AED;--primary-dark:#5B21B6;--primary-light:#F5F3FF;--text:#111827;--text-muted:#6B7280;--bg:#F9FAFB;--border:#E5E7EB;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:#fff;line-height:1.6;}
+    h1,h2,h3,h4{font-family:'Syne',sans-serif;}
+    img{max-width:100%;}
+    a{color:var(--primary);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    .nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(229,231,235,0.6);}
+    .nav-logo{display:flex;align-items:center;text-decoration:none;}
+    .nav-logo-img{height:62px;width:auto;display:block;mix-blend-mode:multiply;filter:drop-shadow(0 1px 4px rgba(124,58,237,0.18));transition:filter .2s,transform .2s;}
+    .nav-logo-img:hover{filter:drop-shadow(0 2px 8px rgba(124,58,237,0.32));transform:translateY(-1px);}
+    .nav-links{display:flex;align-items:center;gap:8px;}
+    .nav-link{padding:8px 16px;border-radius:8px;text-decoration:none;font-size:.9rem;font-weight:500;color:var(--text-muted);transition:all .2s;}
+    .nav-link:hover{color:var(--primary);background:var(--primary-light);}
+    .nav-cta{padding:9px 22px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:600;font-size:.9rem;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,.3);}
+    .nav-cta:hover{background:var(--primary-dark);transform:translateY(-1px);}
+    .nav-mobile{display:none;background:none;border:none;font-size:1.25rem;color:var(--text);cursor:pointer;padding:8px;}
+
+    .legal-hero{padding:120px 5% 56px;background:linear-gradient(160deg,#faf5ff 0%,#ede9fe 50%,#f0fdf4 100%);position:relative;overflow:hidden;}
+    .legal-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(124,58,237,.1) 0%,transparent 70%);}
+    .legal-hero-inner{position:relative;max-width:800px;}
+    .page-label{display:inline-flex;align-items:center;gap:7px;background:white;border:1px solid #e9d5ff;border-radius:30px;padding:6px 16px;font-size:.82rem;font-weight:600;color:var(--primary);margin-bottom:20px;box-shadow:0 2px 12px rgba(124,58,237,.1);}
+    .legal-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:#0F0A1E;margin-bottom:14px;line-height:1.15;}
+    .legal-hero .meta{font-size:.9rem;color:var(--text-muted);}
+
+    .legal-layout{display:grid;grid-template-columns:240px 1fr;gap:56px;max-width:1100px;margin:0 auto;padding:64px 5% 96px;}
+
+    /* SIDEBAR */
+    .legal-sidebar{position:sticky;top:88px;height:fit-content;}
+    .sidebar-title{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:14px;}
+    .sidebar-nav{display:flex;flex-direction:column;gap:2px;}
+    .sidebar-link{display:block;padding:8px 12px;border-radius:8px;font-size:.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;transition:all .2s;border-left:2px solid transparent;}
+    .sidebar-link:hover{color:var(--primary);background:var(--primary-light);border-color:var(--primary);}
+    .sidebar-link.active{color:var(--primary);background:var(--primary-light);border-color:var(--primary);font-weight:600;}
+
+    /* CONTENT */
+    .legal-content{}
+    .legal-section{margin-bottom:52px;scroll-margin-top:96px;}
+    .legal-section:last-child{margin-bottom:0;}
+    .legal-section h2{font-size:1.4rem;font-weight:800;color:#0F0A1E;margin-bottom:16px;padding-bottom:12px;border-bottom:1.5px solid var(--border);}
+    .legal-section p{color:var(--text-muted);line-height:1.85;margin-bottom:14px;font-size:.95rem;}
+    .legal-section p:last-child{margin-bottom:0;}
+    .legal-section ul{padding-left:20px;margin:12px 0 14px;color:var(--text-muted);}
+    .legal-section ul li{margin-bottom:8px;line-height:1.75;font-size:.95rem;}
+    .legal-section h3{font-size:1.05rem;font-weight:700;color:#0F0A1E;margin:24px 0 10px;}
+    .highlight-box{background:var(--primary-light);border:1.5px solid rgba(124,58,237,.2);border-radius:12px;padding:20px 24px;margin:20px 0;}
+    .highlight-box p{color:var(--primary-dark);font-size:.9rem;margin:0;}
+    .highlight-box i{margin-right:8px;}
+
+    footer{background:#0F0A1E;color:#C4B5FD;padding:64px 5% 32px;}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;}
+    .footer-logo{margin-bottom:16px;}
+    .footer-logo-img{height:52px;width:auto;display:block;border-radius:10px;filter:brightness(1.1) drop-shadow(0 2px 8px rgba(124,58,237,.25));}
+    .footer-desc{font-size:.875rem;color:#9CA3AF;line-height:1.65;max-width:260px;}
+    .footer-col h4{font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;color:white;text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;}
+    .footer-col a{display:block;font-size:.875rem;color:#9CA3AF;text-decoration:none;margin-bottom:10px;transition:color .15s;}
+    .footer-col a:hover{color:white;}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .footer-copy{font-size:.82rem;color:#6B7280;}
+    .footer-socials{display:flex;gap:12px;}
+    .footer-social{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;color:#9CA3AF;text-decoration:none;font-size:.9rem;transition:all .2s;}
+    .footer-social:hover{background:var(--primary);color:white;}
+
+    @media(max-width:900px){
+      .legal-layout{grid-template-columns:1fr;}
+      .legal-sidebar{position:relative;top:0;}
+      .sidebar-nav{flex-direction:row;flex-wrap:wrap;gap:6px;}
+      .sidebar-link{border-left:none;border-bottom:2px solid transparent;}
+      .sidebar-link.active{border-left:none;border-bottom-color:var(--primary);}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none;}.nav-mobile{display:block;}
+      .footer-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media(max-width:480px){.footer-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/resumepilot logo2.png" alt="ResumePilot" class="nav-logo-img">
+  </a>
+  <div class="nav-links">
+    <a href="index.html#features" class="nav-link">Features</a>
+    <a href="index.html#pricing" class="nav-link">Pricing</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="auth.html" class="nav-link">Sign In</a>
+    <a href="auth.html" class="nav-cta">Get Started Free</a>
+  </div>
+  <button class="nav-mobile" onclick="document.querySelector('.nav-links').style.cssText='display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:white;padding:20px;border-bottom:1px solid #e5e7eb;z-index:99;gap:4px;'"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="legal-hero">
+  <div class="legal-hero-inner">
+    <div class="page-label"><i class="fas fa-shield-alt"></i> Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Last updated: <strong>1 January 2025</strong> &nbsp;·&nbsp; Effective: <strong>1 January 2025</strong></p>
+  </div>
+</section>
+
+<!-- LAYOUT -->
+<div class="legal-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="legal-sidebar">
+    <div class="sidebar-title">Contents</div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <a href="#intro" class="sidebar-link active">1. Introduction</a>
+      <a href="#collect" class="sidebar-link">2. What We Collect</a>
+      <a href="#use" class="sidebar-link">3. How We Use It</a>
+      <a href="#sharing" class="sidebar-link">4. Data Sharing</a>
+      <a href="#security" class="sidebar-link">5. Security</a>
+      <a href="#retention" class="sidebar-link">6. Retention</a>
+      <a href="#rights" class="sidebar-link">7. Your Rights</a>
+      <a href="#cookies" class="sidebar-link">8. Cookies</a>
+      <a href="#third-party" class="sidebar-link">9. Third Parties</a>
+      <a href="#children" class="sidebar-link">10. Children</a>
+      <a href="#changes" class="sidebar-link">11. Changes</a>
+      <a href="#contact" class="sidebar-link">12. Contact Us</a>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="legal-content">
+
+    <div class="highlight-box">
+      <p><i class="fas fa-info-circle"></i><strong>Plain-language summary:</strong> We collect your resume data and usage information to run ResumePilot. We never sell your personal data, never share it with employers without your action, and you can delete everything at any time. This policy explains the details.</p>
+    </div>
+
+    <div class="legal-section" id="intro">
+      <h2>1. Introduction</h2>
+      <p>ResumePilot ("we", "us", or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website at resumepilot.com and our related services (collectively, the "Service").</p>
+      <p>Please read this policy carefully. If you do not agree with its terms, please discontinue use of the Service. By accessing or using ResumePilot, you acknowledge that you have read, understood, and agree to be bound by this Privacy Policy.</p>
+    </div>
+
+    <div class="legal-section" id="collect">
+      <h2>2. Information We Collect</h2>
+      <h3>Information you provide directly</h3>
+      <ul>
+        <li><strong>Account information:</strong> Name, email address, and password when you register.</li>
+        <li><strong>Profile and resume data:</strong> Work history, education, skills, certifications, and any other information you enter to build your resume.</li>
+        <li><strong>Job descriptions:</strong> Content you paste into the Job Analyser or Resume Generator.</li>
+        <li><strong>Payment information:</strong> Billing details processed by our payment provider (Stripe). We do not store card numbers on our servers.</li>
+        <li><strong>Communications:</strong> Messages you send to our support team.</li>
+      </ul>
+      <h3>Information collected automatically</h3>
+      <ul>
+        <li><strong>Usage data:</strong> Pages visited, features used, time spent, button clicks, and error logs.</li>
+        <li><strong>Device data:</strong> Browser type, operating system, IP address, and referring URL.</li>
+        <li><strong>Cookies:</strong> Session cookies and analytics cookies (see Section 8).</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="use">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li>Provide, operate, and maintain the ResumePilot service</li>
+        <li>Generate AI-tailored resumes and cover letters based on your data</li>
+        <li>Process payments and manage your subscription</li>
+        <li>Send transactional emails (receipts, password resets, account alerts)</li>
+        <li>Send product update emails (you may opt out at any time)</li>
+        <li>Analyse usage patterns to improve the Service</li>
+        <li>Detect, prevent, and respond to fraud or security incidents</li>
+        <li>Comply with legal obligations</li>
+      </ul>
+      <p>We do not use your resume content or job descriptions to train our AI models without explicit opt-in consent.</p>
+    </div>
+
+    <div class="legal-section" id="sharing">
+      <h2>4. Data Sharing and Disclosure</h2>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following limited circumstances:</p>
+      <ul>
+        <li><strong>Service providers:</strong> Trusted vendors who help us operate the Service (e.g., cloud hosting, payment processing, email delivery). They are contractually bound to protect your data and may not use it for their own purposes.</li>
+        <li><strong>Legal requirements:</strong> If required by law, court order, or governmental authority.</li>
+        <li><strong>Business transfers:</strong> If ResumePilot is acquired or merges with another company, your data may be transferred as part of that transaction. We will notify you before any such transfer takes effect.</li>
+        <li><strong>Your explicit action:</strong> For example, if you choose to share a resume via a public link.</li>
+      </ul>
+    </div>
+
+    <div class="legal-section" id="security">
+      <h2>5. Data Security</h2>
+      <p>We implement industry-standard security measures to protect your data:</p>
+      <ul>
+        <li>All data transmitted between your browser and our servers is encrypted using TLS (HTTPS)</li>
+        <li>Passwords are hashed using bcrypt and never stored in plain text</li>
+        <li>Database access is restricted and access-logged</li>
+        <li>We conduct regular security reviews and penetration testing</li>
+      </ul>
+      <p>No method of transmission over the internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security. In the event of a data breach affecting your personal information, we will notify you as required by applicable law.</p>
+    </div>
+
+    <div class="legal-section" id="retention">
+      <h2>6. Data Retention</h2>
+      <p>We retain your personal data for as long as your account is active or as needed to provide the Service. You may delete your account at any time from <a href="settings.html">Settings → Account → Delete Account</a>.</p>
+      <p>Upon account deletion, your profile, resume data, and cover letters are permanently removed from our systems within 30 days. Certain records may be retained for a longer period where required by law (e.g., financial records for tax compliance).</p>
+    </div>
+
+    <div class="legal-section" id="rights">
+      <h2>7. Your Rights and Choices</h2>
+      <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+      <ul>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+        <li><strong>Correction:</strong> Request that we correct inaccurate data</li>
+        <li><strong>Deletion:</strong> Request deletion of your personal data ("right to be forgotten")</li>
+        <li><strong>Portability:</strong> Request your data in a machine-readable format (via Settings → Export Data)</li>
+        <li><strong>Objection:</strong> Object to certain processing activities, including marketing emails</li>
+        <li><strong>Restriction:</strong> Request that we limit processing of your data in certain circumstances</li>
+      </ul>
+      <p>To exercise these rights, contact us at <a href="mailto:privacy@resumepilot.com">privacy@resumepilot.com</a>. We will respond within 30 days.</p>
+    </div>
+
+    <div class="legal-section" id="cookies">
+      <h2>8. Cookies</h2>
+      <p>We use cookies and similar tracking technologies to improve your experience:</p>
+      <ul>
+        <li><strong>Essential cookies:</strong> Required for the Service to function (e.g., session authentication). Cannot be disabled.</li>
+        <li><strong>Analytics cookies:</strong> Help us understand how users interact with the Service (e.g., Google Analytics). You can opt out via your browser settings or <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google's opt-out tool</a>.</li>
+        <li><strong>Preference cookies:</strong> Remember your settings and preferences across sessions.</li>
+      </ul>
+      <p>You can control cookies through your browser settings. Disabling certain cookies may affect the functionality of the Service.</p>
+    </div>
+
+    <div class="legal-section" id="third-party">
+      <h2>9. Third-Party Services</h2>
+      <p>The Service integrates with the following third-party services, each governed by their own privacy policies:</p>
+      <ul>
+        <li><strong>Stripe</strong> — Payment processing</li>
+        <li><strong>Google Analytics</strong> — Usage analytics</li>
+        <li><strong>OpenAI / Anthropic</strong> — AI-powered resume and cover letter generation</li>
+        <li><strong>Firebase</strong> — Authentication and data storage</li>
+        <li><strong>Resend</strong> — Transactional email delivery</li>
+      </ul>
+      <p>We are not responsible for the privacy practices of these third parties and encourage you to review their respective privacy policies.</p>
+    </div>
+
+    <div class="legal-section" id="children">
+      <h2>10. Children's Privacy</h2>
+      <p>The Service is not directed at children under the age of 16. We do not knowingly collect personal information from children under 16. If you believe we have inadvertently collected information from a child, please contact us at <a href="mailto:privacy@resumepilot.com">privacy@resumepilot.com</a> and we will delete it promptly.</p>
+    </div>
+
+    <div class="legal-section" id="changes">
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we make material changes, we will notify you by email or via a prominent notice in the Service at least 14 days before the changes take effect. The "Last updated" date at the top of this page always reflects the most recent revision.</p>
+      <p>Your continued use of the Service after any changes constitutes your acceptance of the updated policy.</p>
+    </div>
+
+    <div class="legal-section" id="contact">
+      <h2>12. Contact Us</h2>
+      <p>If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> <a href="mailto:privacy@resumepilot.com">privacy@resumepilot.com</a></li>
+        <li><strong>Postal address:</strong> ResumePilot, Lagos, Nigeria</li>
+      </ul>
+      <p>For EU/EEA residents, we act as the data controller for your personal information. You also have the right to lodge a complaint with your local data protection authority.</p>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo"><img src="images/resumepilot logo1.png" alt="ResumePilot" class="footer-logo-img"></div>
+      <p class="footer-desc">AI-powered resume builder trusted by job seekers across 40+ countries. Built to help you get hired, faster.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="analyzer.html">Job Analyser</a>
+      <a href="generator.html">Resume Generator</a>
+      <a href="cover-letter.html">Cover Letters</a>
+      <a href="tracker.html">App Tracker</a>
+    </div>
+    <div class="footer-col">
+      <h4>Account</h4>
+      <a href="auth.html">Sign In</a>
+      <a href="auth.html">Create Account</a>
+      <a href="profile.html">My Profile</a>
+      <a href="settings.html">Settings</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="about.html">About Us</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 ResumePilot. All rights reserved.</div>
+    <div class="footer-socials">
+      <a href="#" class="footer-social"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-linkedin"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="footer-social"><i class="fab fa-github"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.legal-section');
+  const links = document.querySelectorAll('.sidebar-link');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const link = document.querySelector('.sidebar-link[href="#' + e.target.id + '"]');
+        if (link) link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => obs.observe(s));
+</script>
+
+</body>
+</html>
