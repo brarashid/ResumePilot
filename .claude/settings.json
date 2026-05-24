@@ -6,7 +6,8 @@
       "Bash(git commit -m ' *)",
       "Bash(Select-String -Pattern \"social-proof|sp-logo|sp-label|Users hired\" -Context 5)",
       "Bash(Select-Object -First 40)",
-      "Read(//c/Users/USER/Desktop/ResumePilot/images/**)"
+      "Read(//c/Users/USER/Desktop/ResumePilot/images/**)",
+      "WebFetch(domain:resumewise.com)"
     ]
   }
 }
