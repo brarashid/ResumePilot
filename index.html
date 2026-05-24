@@ -183,7 +183,8 @@
     .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
     .footer-brand { }
     .footer-logo { margin-bottom: 16px; }
-    .footer-logo-img { height: 96px; width: auto; display: block; border-radius: 8px; }
+    .footer-logo-img { height: 52px; width: auto; display: block; border-radius: 10px; filter: brightness(1.1) drop-shadow(0 2px 8px rgba(124,58,237,0.25)); transition: filter 0.2s; }
+    .footer-logo-img:hover { filter: brightness(1.2) drop-shadow(0 4px 14px rgba(124,58,237,0.4)); }
     .footer-desc { font-size: 0.875rem; color: #9CA3AF; line-height: 1.65; max-width: 260px; }
     .footer-col h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; color: white; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
     .footer-col a { display: block; font-size: 0.875rem; color: #9CA3AF; text-decoration: none; margin-bottom: 10px; transition: color 0.15s; }
@@ -246,9 +247,22 @@
 
     /* ── ATS SCORE CALLOUT ── */
     .score-section { padding: 96px 5%; background: white; }
-    .score-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .score-layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; max-width: 1300px; margin: 0 auto; }
     .score-visual { display: flex; justify-content: center; align-items: center; }
-    .score-ring-wrap { position: relative; width: 220px; height: 220px; }
+    .score-visual-wrap { position: relative; width: 620px; height: 560px; display: flex; align-items: center; justify-content: center; }
+    .score-cv-img { position: absolute; width: 235px; height: 315px; object-fit: cover; object-position: top; border-radius: 18px; border: 4px solid white; box-shadow: 0 24px 56px rgba(0,0,0,0.26), 0 4px 16px rgba(0,0,0,0.12); transition: transform 0.4s cubic-bezier(.22,.68,0,1.2), box-shadow 0.35s ease; cursor: pointer; }
+    .score-cv-1 { top: 10px; left: 10px; transform: rotate(-16deg); z-index: 1; }
+    .score-cv-2 { top: 0px; right: 50px; transform: rotate(13deg); z-index: 2; }
+    .score-cv-3 { bottom: 10px; left: 50px; transform: rotate(11deg); z-index: 2; }
+    .score-cv-4 { bottom: 5px; right: 10px; transform: rotate(-14deg); z-index: 1; }
+    .score-cv-1:hover { transform: rotate(-5deg) scale(1.1) translate(10px, -10px); box-shadow: 0 40px 72px rgba(0,0,0,0.35); z-index: 5; }
+    .score-cv-2:hover { transform: rotate(4deg) scale(1.1) translate(-10px, 10px); box-shadow: 0 40px 72px rgba(0,0,0,0.35); z-index: 5; }
+    .score-cv-3:hover { transform: rotate(3deg) scale(1.1) translate(10px, -10px); box-shadow: 0 40px 72px rgba(0,0,0,0.35); z-index: 5; }
+    .score-cv-4:hover { transform: rotate(-4deg) scale(1.1) translate(-10px, -10px); box-shadow: 0 40px 72px rgba(0,0,0,0.35); z-index: 5; }
+    .score-ring-wrap { position: relative; width: 220px; height: 220px; z-index: 3; }
+    .score-ring-wrap::before { content: ''; position: absolute; inset: -28px; border-radius: 50%; background: rgba(255,255,255,0.25); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(124,58,237,0.1); z-index: 0; }
+    .score-ring-svg { position: relative; z-index: 1; }
+    .score-ring-num { z-index: 2; }
     .score-ring-svg { width: 220px; height: 220px; transform: rotate(-90deg); }
     .score-ring-bg { fill: none; stroke: #EDE9FE; stroke-width: 16; }
     .score-ring-fill { fill: none; stroke: #7C3AED; stroke-width: 16; stroke-linecap: round; stroke-dasharray: 628; stroke-dashoffset: 94; transition: stroke-dashoffset 1.5s ease; }
@@ -282,11 +296,14 @@
     .tpl-badge { display: inline-block; font-size: 0.62rem; font-weight: 700; padding: 2px 7px; border-radius: 5px; margin-top: 5px; text-transform: uppercase; letter-spacing: 0.04em; }
 
     /* ── LOGOS SECTION ── */
-    .logos-section { padding: 48px 5%; background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .logos-header { text-align: center; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
-    .logos-grid { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 28px 44px; max-width: 880px; margin: 0 auto; }
-    .logo-item img { height: 26px; width: auto; object-fit: contain; opacity: 0.45; filter: grayscale(100%); transition: opacity 0.2s, filter 0.2s; display: block; }
+    .logos-section { padding: 48px 0; background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
+    .logos-header { text-align: center; font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 28px; }
+    .logos-slider { overflow: hidden; }
+    .logos-track { display: flex; align-items: center; gap: 64px; width: max-content; animation: scroll-logos 28s linear infinite; padding: 0 32px; }
+    .logos-track:hover { animation-play-state: paused; }
+    .logo-item img { height: 40px; width: auto; object-fit: contain; opacity: 0.5; filter: grayscale(100%); transition: opacity 0.2s, filter 0.2s; display: block; }
     .logo-item img:hover { opacity: 1; filter: grayscale(0%); }
+    @keyframes scroll-logos { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
     /* ── ENHANCED TESTIMONIALS ── */
     .testimonial-verified { display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; font-weight: 700; color: #16A34A; background: #DCFCE7; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; }
@@ -416,14 +433,20 @@
 <section class="score-section">
   <div class="score-layout">
     <div class="score-visual">
-      <div class="score-ring-wrap">
-        <svg class="score-ring-svg" viewBox="0 0 220 220">
-          <circle class="score-ring-bg" cx="110" cy="110" r="90"/>
-          <circle class="score-ring-fill" cx="110" cy="110" r="90" id="scoreRingFill"/>
-        </svg>
-        <div class="score-ring-num">
-          <span class="score-big" id="scoreNum">85</span>
-          <span class="score-lbl">ATS Score</span>
+      <div class="score-visual-wrap">
+        <img src="images/Executive Classic CV.jpg" alt="" class="score-cv-img score-cv-1">
+        <img src="images/Modern Minimal CV.jpg" alt="" class="score-cv-img score-cv-2">
+        <img src="images/African Scholar CV.jpg" alt="" class="score-cv-img score-cv-3">
+        <img src="images/Gulf Professional CV.jpg" alt="" class="score-cv-img score-cv-4">
+        <div class="score-ring-wrap">
+          <svg class="score-ring-svg" viewBox="0 0 220 220">
+            <circle class="score-ring-bg" cx="110" cy="110" r="90"/>
+            <circle class="score-ring-fill" cx="110" cy="110" r="90" id="scoreRingFill"/>
+          </svg>
+          <div class="score-ring-num">
+            <span class="score-big" id="scoreNum">85</span>
+            <span class="score-lbl">ATS Score</span>
+          </div>
         </div>
       </div>
     </div>
@@ -601,17 +624,30 @@
 <!-- ── HIRED AT ── -->
 <div class="logos-section">
   <div class="logos-header">Millions of professionals hired at top companies</div>
-  <div class="logos-grid">
-    <div class="logo-item"><img src="images/google-logo.png" alt="Google"></div>
-    <div class="logo-item"><img src="images/microsoft-logo.png" alt="Microsoft"></div>
-    <div class="logo-item"><img src="images/amazon-logo.jpg" alt="Amazon"></div>
-    <div class="logo-item"><img src="images/meta-logo.png" alt="Meta"></div>
-    <div class="logo-item"><img src="images/stripe-logo.png" alt="Stripe"></div>
-    <div class="logo-item"><img src="images/shopify-logo.png" alt="Shopify"></div>
-    <div class="logo-item"><img src="images/paystack-logo.png" alt="Paystack"></div>
-    <div class="logo-item"><img src="images/flutterwave-logo.png" alt="Flutterwave"></div>
-    <div class="logo-item"><img src="images/andela-logo.png" alt="Andela"></div>
-    <div class="logo-item"><img src="images/mtn-logo.png" alt="MTN"></div>
+  <div class="logos-slider">
+    <div class="logos-track">
+      <div class="logo-item"><img src="images/google-logo.png" alt="Google"></div>
+      <div class="logo-item"><img src="images/microsoft-logo.png" alt="Microsoft"></div>
+      <div class="logo-item"><img src="images/amazon-logo.png" alt="Amazon"></div>
+      <div class="logo-item"><img src="images/meta-logo.png" alt="Meta"></div>
+      <div class="logo-item"><img src="images/stripe-logo.png" alt="Stripe"></div>
+      <div class="logo-item"><img src="images/shopify-logo.png" alt="Shopify"></div>
+      <div class="logo-item"><img src="images/paystack-logo.png" alt="Paystack"></div>
+      <div class="logo-item"><img src="images/flutterwave-logo.png" alt="Flutterwave"></div>
+      <div class="logo-item"><img src="images/andela-logo.png" alt="Andela"></div>
+      <div class="logo-item"><img src="images/mtn-logo.png" alt="MTN"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="logo-item"><img src="images/google-logo.png" alt="Google"></div>
+      <div class="logo-item"><img src="images/microsoft-logo.png" alt="Microsoft"></div>
+      <div class="logo-item"><img src="images/amazon-logo.png" alt="Amazon"></div>
+      <div class="logo-item"><img src="images/meta-logo.png" alt="Meta"></div>
+      <div class="logo-item"><img src="images/stripe-logo.png" alt="Stripe"></div>
+      <div class="logo-item"><img src="images/shopify-logo.png" alt="Shopify"></div>
+      <div class="logo-item"><img src="images/paystack-logo.png" alt="Paystack"></div>
+      <div class="logo-item"><img src="images/flutterwave-logo.png" alt="Flutterwave"></div>
+      <div class="logo-item"><img src="images/andela-logo.png" alt="Andela"></div>
+      <div class="logo-item"><img src="images/mtn-logo.png" alt="MTN"></div>
+    </div>
   </div>
 </div>
 
@@ -858,7 +894,6 @@
       <a href="auth.html">Create Account</a>
       <a href="profile.html">My Profile</a>
       <a href="settings.html">Settings</a>
-      <a href="admin.html">Admin Panel</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
