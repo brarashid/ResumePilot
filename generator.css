@@ -16,6 +16,16 @@
   min-width: 0;
 }
 
+/* ── REGION TEXT BADGE ── */
+.region-text-badge {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--primary-light); color: var(--primary);
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 2px;
+}
+.region-gen.active .region-text-badge { background: var(--primary); color: white; }
+
 /* ── REGION SELECTOR ── */
 .region-grid-gen {
   display: grid;

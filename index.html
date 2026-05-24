@@ -202,10 +202,23 @@
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .hero-stats { gap: 24px; }
       .cta-banner { padding: 40px 24px; }
+      .mid-cta { padding: 40px 5%; }
+      .score-layout { grid-template-columns: 1fr; gap: 40px; }
+      .score-ring-wrap { width: 180px; height: 180px; }
+      .score-ring-svg { width: 180px; height: 180px; }
+      .templates-grid { grid-template-columns: repeat(2, 1fr); }
+      .logos-grid { gap: 20px 28px; }
+      .logo-item img { height: 22px; }
+      .faq-wrap { margin-top: 32px; }
+      .pain-bar-inner { flex-direction: column; gap: 12px; }
     }
     @media (max-width: 480px) {
       .footer-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
+      .templates-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-btns { flex-direction: column; align-items: center; }
+      .score-ring-wrap { width: 160px; height: 160px; }
+      .score-ring-svg { width: 160px; height: 160px; }
     }
 
     /* â"€â"€ ANIMATIONS â"€â"€ */
@@ -301,6 +314,7 @@
   <div class="nav-links">
     <a href="#features" class="nav-link">Features</a>
     <a href="#how" class="nav-link">How It Works</a>
+    <a href="#templates" class="nav-link">Templates</a>
     <a href="#pricing" class="nav-link">Pricing</a>
     <a href="#faq" class="nav-link">FAQ</a>
     <a href="auth.html" class="nav-link">Sign In</a>
@@ -507,7 +521,7 @@
 </section>
 
 <!-- ── TEMPLATE SHOWCASE ── -->
-<section class="templates-section">
+<section class="templates-section" id="templates">
   <div class="section-center">
     <div class="section-label">Templates</div>
     <h2 class="section-title">Professionally designed for every career</h2>
